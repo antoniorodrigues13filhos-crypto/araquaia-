@@ -183,8 +183,8 @@
         .nav-cta:hover { background-color: rgba(255,184,0,0.25) !important; border-color: rgba(255,184,0,0.6) !important; color: #FFB800 !important; }
         .nav-icons { display: flex; gap: 16px; color: rgba(255,255,255,0.6); }
 
-        /* Recalibrado para 153 frames (680vh de percurso efetivo) */
-        #scroll-hero { height: 780vh; position: relative; background-color: #111111; }
+        /* Calibrado para 110 frames (0083.webp a 0192.webp) */
+        #scroll-hero { height: 600vh; position: relative; background-color: #111111; }
 
         .hero-sticky {
             position: sticky;
@@ -978,8 +978,10 @@
     <script>
     (() => {
         const BASE_URL    = './';
-        const FRAME_COUNT = 153;
-        const PLAY_END    = 0.93;
+        const START_FRAME = 83;
+        const END_FRAME   = 192;
+        const FRAME_COUNT = END_FRAME - START_FRAME + 1; // 110 frames (0083.webp até 0192.webp)
+        const PLAY_END    = 0.90;
         const IS_MOBILE   = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 1024;
 
         const bitmaps = new Array(FRAME_COUNT);
@@ -991,11 +993,10 @@
         const ctx    = canvas.getContext('2d', { alpha: false, desynchronized: true });
         let cW, cH, dpr, drawX, drawY, drawW, drawH;
 
-        /* Faixas sincronizadas com os 153 frames em 780vh */
         const blocks = [
-            { id: 'copy-1', dot: 'dot-1', start: 0.03, end: 0.27, el: null, dotEl: null, tId: null },
-            { id: 'copy-2', dot: 'dot-2', start: 0.34, end: 0.59, el: null, dotEl: null, tId: null },
-            { id: 'copy-3', dot: 'dot-3', start: 0.67, end: 0.97, el: null, dotEl: null, tId: null }
+            { id: 'copy-1', dot: 'dot-1', start: 0.04, end: 0.26, el: null, dotEl: null, tId: null },
+            { id: 'copy-2', dot: 'dot-2', start: 0.33, end: 0.57, el: null, dotEl: null, tId: null },
+            { id: 'copy-3', dot: 'dot-3', start: 0.69, end: 0.98, el: null, dotEl: null, tId: null }
         ];
 
         let isProcessSectionVisible = false;
@@ -1064,14 +1065,14 @@
             ctx.globalAlpha = 1;
             ctx.drawImage(bmpA, drawX, drawY, drawW, drawH);
 
-            if (t > 0.02 && bmpB) {
+            if (t > 0.015 && bmpB) {
                 ctx.globalAlpha = t;
                 ctx.drawImage(bmpB, drawX, drawY, drawW, drawH);
                 ctx.globalAlpha = 1;
             }
 
-            if (fraction > 0.90 && !IS_MOBILE) {
-                const zp = (fraction - 0.90) / 0.10;
+            if (fraction > 0.88 && !IS_MOBILE) {
+                const zp = (fraction - 0.88) / 0.12;
                 canvas.style.transform = `scale3d(${1 - zp * 0.04}, ${1 - zp * 0.04}, 1)`;
             } else {
                 canvas.style.transform = 'scale3d(1, 1, 1)';
@@ -1091,11 +1092,11 @@
                     b.el.classList.add('active');
                     if (b.dotEl) b.dotEl.classList.add('active');
 
-                    const drift = (fraction - b.start) * (window.innerHeight * 0.45);
+                    const drift = (fraction - b.start) * (window.innerHeight * 0.55);
                     b.el.style.transform = `translate3d(0, ${-drift.toFixed(2)}px, 0)`;
 
                     if (b.id === 'copy-1') {
-                        const fill = Math.min(100, ((fraction - b.start) / 0.15) * 100);
+                        const fill = Math.min(100, ((fraction - b.start) / 0.14) * 100);
                         document.documentElement.style.setProperty('--fill-width', fill.toFixed(1) + '%');
                     }
                 } else {
@@ -1122,9 +1123,9 @@
             lastScrollY      = curScrollY;
             const delta = targetFraction - currentFraction;
 
-            if (Math.abs(delta) > 0.00003) {
-                const base = IS_MOBILE ? 0.11 : 0.065;
-                const lerp = Math.min(IS_MOBILE ? 0.32 : 0.14, base + velocity * 0.0006);
+            if (Math.abs(delta) > 0.00005) {
+                const base = IS_MOBILE ? 0.12 : 0.08;
+                const lerp = Math.min(IS_MOBILE ? 0.35 : 0.15, base + velocity * 0.0008);
                 currentFraction += delta * lerp;
                 currentFraction = Math.max(0, Math.min(1, currentFraction));
 
@@ -1198,7 +1199,7 @@
             initBlocks();
             lockHeroHeight();
 
-            const CONCURRENCY = IS_MOBILE ? 4 : 10;
+            const CONCURRENCY = IS_MOBILE ? 4 : 8;
             const queue = [];
             for (let i = 0; i < FRAME_COUNT; i++) queue.push(i);
 
@@ -1217,7 +1218,8 @@
                         continue;
                     }
 
-                    const url = `${BASE_URL}${String(i + 1).padStart(4, '0')}.webp`;
+                    const frameNum = START_FRAME + i;
+                    const url = `${BASE_URL}${String(frameNum).padStart(4, '0')}.webp`;
                     try {
                         const res = await fetch(url);
                         if (!res.ok) throw new Error(`HTTP ${res.status}`);
