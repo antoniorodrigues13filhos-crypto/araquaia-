@@ -853,98 +853,319 @@
         }
 
         /* =========================================================
-           BOTÃO FLUTUANTE, TOOLTIP E CHAT (VISUAL RENOVADO)
+           CHAT DA FERNANDA — ANCORADO (SEM FLUTUAR) + ALERTA SONORO
            ========================================================= */
         .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; z-index: 9999; cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            animation: float-icon 4s ease-in-out infinite;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.6s ease 0.6s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 64px;
+            height: 64px;
+            z-index: 9999;
+            cursor: pointer;
+            background: linear-gradient(145deg, #1E1E1E, #121212);
+            border: 2px solid rgba(255, 184, 0, 0.75);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58), 0 0 0 4px rgba(255, 184, 0, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.88);
+            transition: opacity 0.45s ease 0.45s, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
         }
-        body.site-ready .whatsapp-float { opacity: 1; pointer-events: auto; }
-        .whatsapp-float::before {
-            content: ''; position: absolute; inset: 0; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+        body.site-ready .whatsapp-float {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+        .whatsapp-float:hover {
+            border-color: #FFB800;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.72), 0 0 0 6px rgba(255, 184, 0, 0.16);
+            transform: scale(1.04);
+        }
+        .whatsapp-float:active {
+            transform: scale(0.97);
+        }
+        .whatsapp-float.ping-glow {
+            animation: launcher-ring 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes launcher-ring {
+            0% { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58), 0 0 0 0 rgba(255, 184, 0, 0.75); }
+            100% { box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58), 0 0 0 22px rgba(255, 184, 0, 0); }
+        }
+
+        .launcher-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: opacity 0.2s ease, transform 0.25s ease;
+        }
+        .launcher-close-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            color: #FFB800;
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.7);
+            transition: opacity 0.2s ease, transform 0.25s ease;
             pointer-events: none;
         }
-        .whatsapp-float svg.wa-main { width: 46%; height: 46%; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); color: #25D366; }
-        .whatsapp-float:hover {
-            transform: translateY(-5px) scale(1.05);
-            border-color: rgba(255, 184, 0, 0.6);
-            background-color: rgba(255, 184, 0, 0.15);
-            box-shadow: 0 15px 35px rgba(255, 184, 0, 0.3), inset 0 0 0 1px rgba(255,184,0,0.3);
-            animation-play-state: paused;
+        .whatsapp-float.is-open .launcher-avatar {
+            opacity: 0;
+            transform: scale(0.8);
         }
-        .whatsapp-float:hover svg.wa-main { transform: scale(1.15) rotate(-5deg); }
-        .wa-badge { position: absolute; top: -2px; right: -2px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 100px; background: #FF3B30; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #111; animation: badge-pop 2.4s ease-in-out infinite; transition: opacity 0.2s ease; }
-        .wa-badge.hidden { opacity: 0; pointer-events: none; }
-        @keyframes badge-pop { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-        @keyframes float-icon { 0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); } }
+        .whatsapp-float.is-open .launcher-close-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        .launcher-wa-mini {
+            position: absolute;
+            right: -3px;
+            bottom: -3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #25D366;
+            color: #0B1910;
+            border: 2.5px solid #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .launcher-wa-mini svg { width: 13px; height: 13px; }
+        .whatsapp-float.is-open .launcher-wa-mini { opacity: 0; transform: scale(0.6); }
 
-        .chat-tooltip { position: fixed; bottom: 112px; right: 30px; background: rgba(17, 17, 17, 0.88); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border: 0.5px solid rgba(255, 184, 0, 0.5); border-radius: 16px; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px; z-index: 9998; box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: float-tooltip 3s ease-in-out infinite; opacity: 0; pointer-events: none; transition: opacity 0.4s ease 0.8s, transform 0.3s ease; transform-origin: bottom right; cursor: pointer; }
-        body.site-ready .chat-tooltip { opacity: 1; pointer-events: auto; }
-        .chat-tooltip::after { content: ''; position: absolute; bottom: -6px; right: 28px; width: 12px; height: 12px; background-color: #111111; border-right: 0.5px solid rgba(255, 184, 0, 0.5); border-bottom: 0.5px solid rgba(255, 184, 0, 0.5); transform: rotate(45deg); }
-        .tooltip-avatar { position: relative; width: 38px; height: 38px; flex-shrink: 0; }
-        .tooltip-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFB800; background: #1a1a1a; }
-        .tooltip-avatar .status-dot { position: absolute; right: -1px; bottom: -1px; border: 2px solid #111; width: 11px; height: 11px; }
-        .tooltip-text { display: flex; flex-direction: column; gap: 2px; }
-        .tooltip-text b { font-size: 12px; color: #F8F8F8; font-weight: 600; white-space: nowrap; }
-        .tooltip-text span { font-size: 11px; color: rgba(255,255,255,0.65); white-space: nowrap; }
-        .tooltip-close { color: rgba(255,255,255,0.6); cursor: pointer; transition: color 0.2s ease; margin-left: 4px; flex-shrink: 0; }
-        .tooltip-close:hover { color: #fff; }
-        body.site-ready .chat-tooltip.hidden, .chat-tooltip.hidden { opacity: 0; pointer-events: none; transform: scale(0.9); transition-delay: 0s; }
-        @keyframes float-tooltip { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+        .wa-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 100px;
+            background: #FF3B30;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2.5px solid #111111;
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.45);
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .wa-badge.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Card de notificação fixo (sem flutuar), estilo alerta de nova mensagem */
+        .chat-tooltip {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 312px;
+            max-width: calc(100vw - 32px);
+            background: rgba(18, 18, 18, 0.96);
+            backdrop-filter: blur(22px) saturate(160%);
+            -webkit-backdrop-filter: blur(22px) saturate(160%);
+            border: 1px solid rgba(255, 184, 0, 0.42);
+            border-radius: 18px;
+            padding: 14px 14px 13px;
+            z-index: 9998;
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px) scale(0.96);
+            transform-origin: bottom right;
+            transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+        .chat-tooltip.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+        .chat-tooltip:hover {
+            border-color: rgba(255, 184, 0, 0.85);
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.72), 0 0 24px rgba(255, 184, 0, 0.14);
+        }
+        .chat-tooltip.attention-flash {
+            animation: tooltip-flash 0.85s ease;
+        }
+        @keyframes tooltip-flash {
+            0% { border-color: rgba(255, 184, 0, 0.42); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62); }
+            35% { border-color: #FFB800; box-shadow: 0 18px 42px rgba(0, 0, 0, 0.65), 0 0 0 5px rgba(255, 184, 0, 0.28); }
+            100% { border-color: rgba(255, 184, 0, 0.48); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62); }
+        }
+        .chat-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 26px;
+            width: 11px;
+            height: 11px;
+            background-color: #121212;
+            border-right: 1px solid rgba(255, 184, 0, 0.42);
+            border-bottom: 1px solid rgba(255, 184, 0, 0.42);
+            transform: rotate(45deg);
+        }
+
+        .tooltip-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .tooltip-sender {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            min-width: 0;
+        }
+        .tooltip-avatar {
+            position: relative;
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+        }
+        .tooltip-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            border: 1.5px solid #FFB800;
+            background: #1a1a1a;
+        }
+        .tooltip-avatar .status-dot {
+            position: absolute;
+            right: -1px;
+            bottom: -1px;
+            border: 2px solid #121212;
+            width: 10px;
+            height: 10px;
+        }
+        .tooltip-meta {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .tooltip-meta b {
+            font-size: 12.5px;
+            color: #F8F8F8;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        .tooltip-meta small {
+            font-size: 10.5px;
+            color: #2fd47e;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .tooltip-close {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            flex-shrink: 0;
+        }
+        .tooltip-close:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+        }
+        .tooltip-msg {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+        .tooltip-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            padding-top: 8px;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+        }
+        .tooltip-cta {
+            color: #FFB800;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tooltip-time {
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 10.5px;
+        }
 
         .status-dot { width: 7px; height: 7px; background-color: #2fd47e; border-radius: 50%; box-shadow: 0 0 8px #2fd47e; display: inline-block; flex-shrink: 0; }
 
         .chat-container {
-            position: fixed; bottom: 112px; right: 30px; width: 392px; height: min(620px, calc(100svh - 150px));
-            background: linear-gradient(180deg, rgba(24,24,24,0.94) 0%, rgba(13,13,13,0.96) 100%);
+            position: fixed; bottom: 100px; right: 24px; width: 392px; height: min(610px, calc(100svh - 136px));
+            background: linear-gradient(180deg, rgba(22,22,22,0.97) 0%, rgba(12,12,12,0.98) 100%);
             backdrop-filter: blur(28px) saturate(170%); -webkit-backdrop-filter: blur(28px) saturate(170%);
-            border: 0.5px solid rgba(255,184,0,0.28); border-radius: 26px; z-index: 9998;
+            border: 1px solid rgba(255,184,0,0.3); border-radius: 24px; z-index: 9998;
             display: flex; flex-direction: column; overflow: hidden;
-            opacity: 0; pointer-events: none; transform: translateY(24px) scale(0.94); transform-origin: bottom right;
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.03), 0 0 50px rgba(255,184,0,0.08);
+            opacity: 0; pointer-events: none; transform: translateY(16px) scale(0.96); transform-origin: bottom right;
+            transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 28px 68px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,255,255,0.03), 0 0 44px rgba(255,184,0,0.07);
         }
         .chat-container.open { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); }
 
-        .chat-header { position: relative; padding: 18px 18px 16px 20px; display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, rgba(255,184,0,0.2) 0%, rgba(255,184,0,0.04) 60%, transparent 100%), rgba(255,255,255,0.02); border-bottom: 0.5px solid rgba(255,184,0,0.22); }
-        .chat-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,184,0,0.7), transparent); opacity: 0.6; }
-        .chat-avatar-wrap { position: relative; width: 54px; height: 54px; flex-shrink: 0; }
-        .chat-avatar-wrap::before { content: ''; position: absolute; inset: -3px; border-radius: 50%; background: conic-gradient(from 0deg, #FFB800, #FFF0B3, #CC9200, #FFB800); animation: avatar-spin 6s linear infinite; }
-        @keyframes avatar-spin { to { transform: rotate(360deg); } }
-        .chat-avatar { position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top; border: 2.5px solid #131313; background: #1c1c1c; display: block; z-index: 1; }
-        .chat-avatar-wrap .status-dot { position: absolute; right: 0; bottom: 1px; width: 13px; height: 13px; border: 2.5px solid #131313; z-index: 2; }
+        .chat-header { position: relative; padding: 16px 16px 15px 18px; display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(255,184,0,0.18) 0%, rgba(255,184,0,0.03) 65%, transparent 100%), rgba(255,255,255,0.02); border-bottom: 0.5px solid rgba(255,184,0,0.22); }
+        .chat-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,184,0,0.65), transparent); opacity: 0.55; }
+        .chat-avatar-wrap { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
+        .chat-avatar { position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid #FFB800; background: #1c1c1c; display: block; z-index: 1; }
+        .chat-avatar-wrap .status-dot { position: absolute; right: 0; bottom: 0; width: 12px; height: 12px; border: 2.5px solid #131313; z-index: 2; }
         .chat-header-info { flex: 1; min-width: 0; }
-        .chat-name { font-family: 'DM Sans', sans-serif; font-size: 16px; color: #F8F8F8; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+        .chat-name { font-family: 'DM Sans', sans-serif; font-size: 15.5px; color: #F8F8F8; font-weight: 700; display: flex; align-items: center; gap: 6px; }
         .chat-verified { width: 15px; height: 15px; color: #FFB800; flex-shrink: 0; }
-        .chat-role { font-size: 11px; color: rgba(255,255,255,0.62); margin-top: 2px; letter-spacing: 0.02em; }
-        .chat-online { font-size: 11px; color: #2fd47e; margin-top: 4px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+        .chat-role { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; letter-spacing: 0.02em; }
+        .chat-online { font-size: 11px; color: #2fd47e; margin-top: 3px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+        .chat-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-        .premium-close-btn { width: 32px; height: 32px; border-radius: 50%; background-color: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); cursor: pointer; transition: transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; flex-shrink: 0; }
+        .chat-icon-btn { width: 32px; height: 32px; border-radius: 50%; background-color: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; flex-shrink: 0; }
+        .chat-icon-btn:hover { background-color: rgba(255,184,0,0.18); border-color: rgba(255,184,0,0.5); color: #FFB800; }
+        .chat-icon-btn.muted { color: rgba(255,255,255,0.38); }
+
+        .premium-close-btn { width: 32px; height: 32px; border-radius: 50%; background-color: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); cursor: pointer; transition: transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; flex-shrink: 0; }
         .premium-close-btn:hover { background-color: rgba(255,184,0,0.2); border-color: rgba(255,184,0,0.5); color: #fff; transform: rotate(90deg); }
 
-        .chat-messages { flex: 1; padding: 20px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: radial-gradient(circle at 85% 0%, rgba(255,184,0,0.05), transparent 45%), radial-gradient(circle at 0% 100%, rgba(255,184,0,0.04), transparent 45%); scroll-behavior: smooth; }
+        .chat-messages { flex: 1; padding: 18px 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 13px; background: radial-gradient(circle at 85% 0%, rgba(255,184,0,0.05), transparent 45%), radial-gradient(circle at 0% 100%, rgba(255,184,0,0.04), transparent 45%); scroll-behavior: smooth; }
         .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 10px; }
-        .chat-day { align-self: center; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 100px; }
+        .chat-messages::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.18); border-radius: 10px; }
+        .chat-day { align-self: center; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 100px; }
 
-        .msg-row { display: flex; align-items: flex-end; gap: 8px; max-width: 100%; animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
+        .msg-row { display: flex; align-items: flex-end; gap: 8px; max-width: 100%; animation: popIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; transform: translateY(8px); }
         .msg-row.user { justify-content: flex-end; }
         .msg-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; object-position: center top; border: 1px solid rgba(255,184,0,0.5); flex-shrink: 0; background: #1c1c1c; }
         @keyframes popIn { to { opacity: 1; transform: translateY(0); } }
 
         .msg-bubble { max-width: 82%; padding: 11px 14px 8px; border-radius: 18px; font-size: 13.5px; line-height: 1.55; word-break: break-word; position: relative; }
-        .msg-bot { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.93); border: 0.5px solid rgba(255,255,255,0.1); border-bottom-left-radius: 5px; }
-        .msg-user { background: linear-gradient(135deg, #FFC42E, #CC9200); color: #111111; font-weight: 500; border-bottom-right-radius: 5px; box-shadow: 0 6px 18px -8px rgba(255,184,0,0.6); }
-        .msg-time { display: block; text-align: right; font-size: 9.5px; margin-top: 4px; opacity: 0.5; letter-spacing: 0.04em; }
+        .msg-bot { background: rgba(255,255,255,0.075); color: rgba(255,255,255,0.93); border: 0.5px solid rgba(255,255,255,0.1); border-bottom-left-radius: 5px; }
+        .msg-user { background: linear-gradient(135deg, #FFC42E, #CC9200); color: #111111; font-weight: 500; border-bottom-right-radius: 5px; box-shadow: 0 6px 18px -8px rgba(255,184,0,0.55); }
+        .msg-time { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 9.5px; margin-top: 4px; opacity: 0.55; letter-spacing: 0.04em; }
 
         .typing-indicator { display: flex; gap: 5px; padding: 6px 4px 4px; }
         .typing-indicator span { width: 6px; height: 6px; background-color: rgba(255,255,255,0.65); border-radius: 50%; animation: blink 1.4s infinite both; }
@@ -952,19 +1173,28 @@
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes blink { 0%, 80%, 100% { opacity: 0.2; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
 
-        .chat-options-container { display: flex; flex-direction: column; gap: 8px; margin: 2px 0 0 36px; animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
-        .chat-option-btn { background: rgba(255,184,0,0.08); border: 0.5px solid rgba(255,184,0,0.45); color: #FFD25E; padding: 11px 14px; border-radius: 14px; font-size: 13px; text-align: left; cursor: pointer; transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; font-family: 'DM Sans', sans-serif; font-weight: 500; line-height: 1.4; }
-        .chat-option-btn:hover { background: rgba(255,184,0,0.2); border-color: rgba(255,184,0,0.85); color: #fff; transform: translateX(4px); }
+        .chat-options-container { display: flex; flex-direction: column; gap: 8px; margin: 2px 0 0 36px; animation: popIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; transform: translateY(8px); }
+        .chat-option-btn { background: rgba(255,184,0,0.08); border: 0.5px solid rgba(255,184,0,0.42); color: #FFD25E; padding: 11px 14px; border-radius: 14px; font-size: 13px; text-align: left; cursor: pointer; transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; font-family: 'DM Sans', sans-serif; font-weight: 500; line-height: 1.4; }
+        .chat-option-btn:hover { background: rgba(255,184,0,0.2); border-color: rgba(255,184,0,0.85); color: #fff; transform: translateX(3px); }
 
-        .chat-input-area { padding: 14px 14px 10px; border-top: 0.5px solid rgba(255,255,255,0.08); display: flex; gap: 10px; background: rgba(0,0,0,0.25); align-items: center; }
-        .chat-input-area input { flex: 1; min-width: 0; background-color: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.16); border-radius: 100px; padding: 13px 18px; color: #fff; font-size: 13.5px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; }
-        .chat-input-area input::placeholder { color: rgba(255,255,255,0.4); }
+        .chat-wa-direct {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 10px; width: 100%; padding: 11px 14px; border-radius: 12px;
+            background: linear-gradient(135deg, #25D366, #1DA851); color: #0B1910;
+            font-size: 12.5px; font-weight: 700; text-decoration: none;
+            transition: filter 0.2s ease, transform 0.2s ease;
+        }
+        .chat-wa-direct:hover { filter: brightness(1.06); transform: translateY(-1px); }
+
+        .chat-input-area { padding: 13px 14px 10px; border-top: 0.5px solid rgba(255,255,255,0.08); display: flex; gap: 10px; background: rgba(0,0,0,0.28); align-items: center; }
+        .chat-input-area input { flex: 1; min-width: 0; background-color: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.16); border-radius: 100px; padding: 12px 17px; color: #fff; font-size: 13.5px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; }
+        .chat-input-area input::placeholder { color: rgba(255,255,255,0.42); }
         .chat-input-area input:focus { border-color: rgba(255,184,0,0.65); background-color: rgba(255,255,255,0.09); box-shadow: 0 0 0 3px rgba(255,184,0,0.12); }
         .chat-input-area input:disabled { opacity: 0.5; }
 
-        .chat-send-btn { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FFC42E, #CC9200); border: none; color: #111111; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; flex-shrink: 0; }
-        .chat-send-btn:hover { transform: scale(1.08) rotate(-8deg); box-shadow: 0 6px 18px rgba(255,184,0,0.45); }
-        .chat-footer-note { text-align: center; font-size: 10px; color: rgba(255,255,255,0.38); padding: 0 14px 12px; background: rgba(0,0,0,0.25); letter-spacing: 0.03em; }
+        .chat-send-btn { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #FFC42E, #CC9200); border: none; color: #111111; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; flex-shrink: 0; }
+        .chat-send-btn:hover { transform: scale(1.06); box-shadow: 0 6px 18px rgba(255,184,0,0.42); }
+        .chat-footer-note { text-align: center; font-size: 10px; color: rgba(255,255,255,0.38); padding: 0 14px 11px; background: rgba(0,0,0,0.28); letter-spacing: 0.03em; }
 
         @media (max-width: 768px) {
             .intro-hud { padding: 22px 20px; }
@@ -988,9 +1218,10 @@
             .tt-left { flex-direction: column; align-items: flex-start; gap: 22px; flex-basis: 100%; }
             .tt-btn { width: 100%; justify-content: center; padding: 20px 24px; }
 
-            .chat-container { width: calc(100vw - 24px); bottom: 92px; right: 12px; height: calc(100svh - 120px); max-height: 640px; border-radius: 22px; }
-            .whatsapp-float { bottom: 20px; right: 20px; width: 60px; height: 60px; }
-            .chat-tooltip { bottom: 95px; right: 20px; padding: 8px 12px 8px 8px; gap: 10px; }
+            .chat-container { width: calc(100vw - 24px); bottom: 88px; right: 12px; height: calc(100svh - 114px); max-height: 620px; border-radius: 22px; }
+            .whatsapp-float { bottom: 18px; right: 18px; width: 58px; height: 58px; }
+            .chat-tooltip { bottom: 86px; right: 16px; width: min(300px, calc(100vw - 32px)); padding: 12px 13px; }
+            .chat-tooltip::after { right: 22px; }
 
             .process-line-bg, .process-line-fill { display: none; }
             .process-line-v-bg, .process-line-v-fill { display: block; }
@@ -1619,7 +1850,7 @@
                 <div style="margin-top:40px;display:flex;gap:12px;" class="reveal reveal-delay-4">
                     <a href="https://www.instagram.com/araguaiamaquinas/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
                     <a href="https://www.tiktok.com/@araguaiamaquinas2027?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok Shop"><svg width="14" height="14"><use href="#tiktok-icon"/></svg></a>
-                    <a href="https://wa.me/556230997275" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
+                    <a href="https://wa.me/556230997275" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
                 </div>
             </div>
             <div class="reveal reveal-delay-1" style="background-color:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.08);border-radius:24px;padding:40px;">
@@ -1696,29 +1927,43 @@
         </div>
     </footer>
 
-    <!-- BOTÃO FLUTUANTE DO CHAT -->
-    <div class="whatsapp-float" onclick="toggleChat()" role="button" aria-label="Abrir chat com a Fernanda">
-        <svg class="wa-main"><use href="#wa-icon"/></svg>
+    <!-- BOTÃO ANCORADO DO CHAT DA FERNANDA (SEM FLUTUAR) -->
+    <button type="button" class="whatsapp-float" id="chat-launcher" onclick="toggleChat()" aria-label="Abrir chat com a Fernanda" aria-expanded="false">
+        <img src="fernanda/fernanda%20(1).webp" alt="Fernanda" class="launcher-avatar" width="64" height="64">
+        <svg class="launcher-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <span class="launcher-wa-mini" aria-hidden="true"><svg><use href="#wa-icon"/></svg></span>
         <span class="wa-badge" id="wa-badge">1</span>
+    </button>
+
+    <!-- NOTIFICAÇÃO DE MENSAGEM DA FERNANDA (FIXA, COM SOM DE ALERTA) -->
+    <div class="chat-tooltip" id="chat-tooltip" onclick="toggleChat()" role="status" aria-live="polite">
+        <div class="tooltip-top">
+            <div class="tooltip-sender">
+                <div class="tooltip-avatar">
+                    <img src="fernanda/fernanda%20(1).webp" alt="Fernanda" width="34" height="34" loading="lazy">
+                    <span class="status-dot"></span>
+                </div>
+                <div class="tooltip-meta">
+                    <b>Fernanda • Araguaia Máquinas</b>
+                    <small>Online agora</small>
+                </div>
+            </div>
+            <button type="button" class="tooltip-close" onclick="closeChatTooltip(event)" aria-label="Dispensar notificação">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <p class="tooltip-msg">Oi! 👋 Posso te ajudar a escolher a máquina ideal ou passar um orçamento rápido?</p>
+        <div class="tooltip-footer">
+            <span class="tooltip-cta">Ver mensagem →</span>
+            <span class="tooltip-time">agora</span>
+        </div>
     </div>
 
-    <div class="chat-tooltip" id="chat-tooltip" onclick="toggleChat()">
-        <div class="tooltip-avatar">
-            <img src="fernanda/fernanda%20(1).webp" alt="Fernanda" width="38" height="38" loading="lazy">
-            <span class="status-dot"></span>
-        </div>
-        <div class="tooltip-text">
-            <b>Fernanda • Especialista</b>
-            <span>Posso te ajudar com um orçamento?</span>
-        </div>
-        <svg class="tooltip-close" onclick="closeChatTooltip(event)" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </div>
-
-    <!-- CHAT -->
+    <!-- CHAT DA FERNANDA -->
     <div class="chat-container" id="chatbot" role="dialog" aria-label="Chat com a especialista Fernanda">
         <div class="chat-header">
             <div class="chat-avatar-wrap">
-                <img src="fernanda/fernanda%20(1).webp" alt="Fernanda" class="chat-avatar" width="54" height="54">
+                <img src="fernanda/fernanda%20(1).webp" alt="Fernanda" class="chat-avatar" width="48" height="48">
                 <span class="status-dot"></span>
             </div>
             <div class="chat-header-info">
@@ -1726,16 +1971,22 @@
                     <svg class="chat-verified" viewBox="0 0 24 24" fill="currentColor" aria-label="Atendente oficial"><path d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3.1 1 3.1-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3-2.6-1.9 1-3.1-1-3.1 2.6-1.9 1-3 3.2.1L12 1.5zm-1.4 14.1l5.6-5.6-1.4-1.4-4.2 4.2-1.9-1.9-1.4 1.4 3.3 3.3z"/></svg>
                 </div>
                 <div class="chat-role">Especialista • Araguaia Máquinas</div>
-                <div class="chat-online"><span class="status-dot"></span> Online agora</div>
+                <div class="chat-online" id="chat-status-text"><span class="status-dot"></span> Online agora</div>
             </div>
-            <button class="premium-close-btn" onclick="toggleChat()" aria-label="Fechar chat">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+            <div class="chat-header-actions">
+                <button type="button" class="chat-icon-btn" id="chat-sound-btn" onclick="toggleChatSound()" aria-label="Silenciar som do chat" title="Som ativado">
+                    <svg id="sound-on-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    <svg id="sound-off-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                </button>
+                <button type="button" class="premium-close-btn" onclick="toggleChat()" aria-label="Fechar chat">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
         </div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="handleChatEnter(event)" autocomplete="off">
-            <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Enviar mensagem">
+            <button type="button" class="chat-send-btn" onclick="sendChatMessage()" aria-label="Enviar mensagem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </div>
@@ -2179,6 +2430,7 @@
                 introStage.classList.add('phase-open');
                 document.body.classList.remove('intro-locked');
                 document.body.classList.add('site-ready');
+                window.dispatchEvent(new CustomEvent('araguaia:siteReady'));
 
                 // Ativa o primeiro bloco de texto e o motor de scroll durante a abertura
                 setTimeout(() => {
@@ -2430,16 +2682,177 @@
     }
 
     /* =========================================================
-       CHAT DA FERNANDA
+       CHAT DA FERNANDA — SOM DE NOTIFICAÇÃO (WEB AUDIO API) + UX
        ========================================================= */
     const IS_MOBILE_CHAT = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 768;
     const FERNANDA_IMG = 'fernanda/fernanda%20(1).webp';
 
     let chatOpen = false;
+    let chatMuted = false;
+    let chatOpenedOnce = false;
+    let tooltipDismissed = false;
+    let welcomeSoundPlayed = false;
+    let pendingWelcomeSound = false;
+    let audioCtx = null;
+
+    const chatLauncher = document.getElementById('chat-launcher');
+    const chatTooltip = document.getElementById('chat-tooltip');
+    const waBadge = document.getElementById('wa-badge');
     const chatMessages = document.getElementById('chat-messages');
     const chatInput = document.getElementById('chat-input');
+    const chatStatusText = document.getElementById('chat-status-text');
 
     let leadData = { nome: "", cidade: "", detalhe: "", interesse: "" };
+
+    function getAudioCtx() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return null;
+        if (!audioCtx) audioCtx = new AudioContextClass();
+        return audioCtx;
+    }
+
+    // Toque duplo suave de notificação (estilo Vertus / chat moderno)
+    function playNotificationChime(mode = 'alert') {
+        if (chatMuted) return false;
+        const ctx = getAudioCtx();
+        if (!ctx) return false;
+
+        if (ctx.state === 'suspended') {
+            ctx.resume().catch(() => {});
+        }
+        if (ctx.state !== 'running') return false;
+
+        const now = ctx.currentTime;
+
+        if (mode === 'alert') {
+            // Nota 1 (A5 - 880Hz) + Nota 2 (D6 - 1174.66Hz): toque "plim-plom" limpo e agradável
+            const notes = [
+                { freq: 880, overtone: 1760, start: 0, dur: 0.24, vol: 0.14 },
+                { freq: 1174.66, overtone: 2349.32, start: 0.105, dur: 0.38, vol: 0.16 }
+            ];
+            notes.forEach((n) => {
+                const osc = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const gain2 = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(n.freq, now + n.start);
+
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(n.overtone, now + n.start);
+
+                gain.gain.setValueAtTime(0.0001, now + n.start);
+                gain.gain.linearRampToValueAtTime(n.vol, now + n.start + 0.012);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + n.start + n.dur);
+
+                gain2.gain.setValueAtTime(0.0001, now + n.start);
+                gain2.gain.linearRampToValueAtTime(n.vol * 0.22, now + n.start + 0.01);
+                gain2.gain.exponentialRampToValueAtTime(0.0001, now + n.start + n.dur * 0.65);
+
+                osc.connect(gain);
+                osc2.connect(gain2);
+                gain.connect(ctx.destination);
+                gain2.connect(ctx.destination);
+
+                osc.start(now + n.start);
+                osc2.start(now + n.start);
+                osc.stop(now + n.start + n.dur + 0.02);
+                osc2.stop(now + n.start + n.dur + 0.02);
+            });
+        } else {
+            // Som discreto quando a Fernanda responde dentro do chat aberto
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(987.77, now);
+            osc.frequency.exponentialRampToValueAtTime(1174.66, now + 0.06);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.linearRampToValueAtTime(0.075, now + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.18);
+        }
+        return true;
+    }
+
+    function flashNotificationAttention() {
+        if (chatTooltip) {
+            chatTooltip.classList.remove('attention-flash');
+            void chatTooltip.offsetWidth;
+            chatTooltip.classList.add('attention-flash');
+        }
+        if (chatLauncher) {
+            chatLauncher.classList.remove('ping-glow');
+            void chatLauncher.offsetWidth;
+            chatLauncher.classList.add('ping-glow');
+        }
+    }
+
+    function showProactiveNotification() {
+        if (chatOpen || chatOpenedOnce || tooltipDismissed) return;
+        if (waBadge) waBadge.classList.add('show');
+        if (chatTooltip) chatTooltip.classList.add('show');
+        flashNotificationAttention();
+
+        const played = playNotificationChime('alert');
+        if (played) {
+            welcomeSoundPlayed = true;
+            pendingWelcomeSound = false;
+        } else {
+            pendingWelcomeSound = true;
+        }
+    }
+
+    // Desbloqueia o áudio na primeira interação do usuário (clique, toque ou teclado)
+    function unlockAudioOnGesture() {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+
+        const onReady = () => {
+            if (pendingWelcomeSound && !welcomeSoundPlayed && !chatOpen && !chatOpenedOnce && !tooltipDismissed) {
+                if (playNotificationChime('alert')) {
+                    welcomeSoundPlayed = true;
+                    pendingWelcomeSound = false;
+                    flashNotificationAttention();
+                }
+            }
+        };
+
+        if (ctx.state === 'suspended') {
+            ctx.resume().then(onReady).catch(() => {});
+        } else {
+            onReady();
+        }
+    }
+
+    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
+        window.addEventListener(evt, unlockAudioOnGesture, { passive: true });
+    });
+
+    // Dispara a notificação com som 2.2s após a abertura da intro
+    window.addEventListener('araguaia:siteReady', () => {
+        setTimeout(showProactiveNotification, 2200);
+    }, { once: true });
+
+    function toggleChatSound() {
+        chatMuted = !chatMuted;
+        const btn = document.getElementById('chat-sound-btn');
+        const iconOn = document.getElementById('sound-on-icon');
+        const iconOff = document.getElementById('sound-off-icon');
+        if (btn) {
+            btn.classList.toggle('muted', chatMuted);
+            btn.setAttribute('aria-label', chatMuted ? 'Ativar som do chat' : 'Silenciar som do chat');
+            btn.title = chatMuted ? 'Som silenciado' : 'Som ativado';
+        }
+        if (iconOn) iconOn.style.display = chatMuted ? 'none' : 'block';
+        if (iconOff) iconOff.style.display = chatMuted ? 'block' : 'none';
+        if (!chatMuted) playNotificationChime('soft');
+    }
 
     function esc(str) {
         const d = document.createElement('div');
@@ -2451,18 +2864,31 @@
         return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     }
 
+    function setOnlineStatus(isTyping) {
+        if (!chatStatusText) return;
+        chatStatusText.innerHTML = isTyping
+            ? '<span class="status-dot"></span> Digitando...'
+            : '<span class="status-dot"></span> Online agora';
+    }
+
     function toggleChat() {
         const chat = document.getElementById('chatbot');
         chat.classList.toggle('open');
         chatOpen = chat.classList.contains('open');
 
+        if (chatLauncher) {
+            chatLauncher.classList.toggle('is-open', chatOpen);
+            chatLauncher.setAttribute('aria-expanded', String(chatOpen));
+        }
+
         if (chatOpen) {
-            const badge = document.getElementById('wa-badge');
-            if (badge) badge.classList.add('hidden');
+            chatOpenedOnce = true;
+            pendingWelcomeSound = false;
+            if (waBadge) waBadge.classList.remove('show');
 
             setTimeout(() => {
                 if (!IS_MOBILE_CHAT) chatInput.focus();
-            }, 300);
+            }, 260);
 
             if (chatMessages.children.length <= 0) {
                 const day = document.createElement('div');
@@ -2476,10 +2902,26 @@
     }
 
     function closeChatTooltip(e) {
-        if (e) e.stopPropagation();
-        const tooltip = document.getElementById('chat-tooltip');
-        if (tooltip) tooltip.classList.add('hidden');
+        if (e) {
+            e.stopPropagation();
+            tooltipDismissed = true;
+            pendingWelcomeSound = false;
+        }
+        if (chatTooltip) chatTooltip.classList.remove('show');
     }
+
+    // Formata o número automaticamente quando o campo estiver no modo telefone
+    chatInput.addEventListener('input', () => {
+        if (chatInput.type !== 'tel') return;
+        let digits = chatInput.value.replace(/\D/g, '').slice(0, 11);
+        if (digits.length > 6) {
+            chatInput.value = `(${digits.slice(0, 2)}) ${digits.slice(2, digits.length === 11 ? 7 : 6)}-${digits.slice(digits.length === 11 ? 7 : 6)}`;
+        } else if (digits.length > 2) {
+            chatInput.value = `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+        } else if (digits.length > 0) {
+            chatInput.value = `(${digits}`;
+        }
+    });
 
     function handleChatEnter(e) {
         if (e.key === 'Enter') sendChatMessage();
@@ -2517,13 +2959,17 @@
         if (!opts.noTime) {
             const time = document.createElement('span');
             time.className = 'msg-time';
-            time.textContent = nowTime();
+            time.textContent = type === 'user' ? `${nowTime()} ✓✓` : nowTime();
             bubble.appendChild(time);
         }
 
         row.appendChild(bubble);
         chatMessages.appendChild(row);
         scrollChat();
+
+        if (type === 'bot' && !opts.silent && !opts.noTime && chatOpen) {
+            playNotificationChime('soft');
+        }
         return row;
     }
 
@@ -2533,6 +2979,7 @@
 
         options.forEach(opt => {
             const btn = document.createElement('button');
+            btn.type = 'button';
             btn.innerText = opt.text;
             btn.className = 'chat-option-btn';
             btn.onclick = () => {
@@ -2545,13 +2992,15 @@
         scrollChat();
     }
 
-    function botTyping(callback, delay = 1100) {
+    function botTyping(callback, delay = 950) {
         chatInput.disabled = true;
+        setOnlineStatus(true);
         const typingHtml = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
-        const rowDiv = addMessage(typingHtml, 'bot', { noTime: true });
+        const rowDiv = addMessage(typingHtml, 'bot', { noTime: true, silent: true });
 
         setTimeout(() => {
             rowDiv.remove();
+            setOnlineStatus(false);
             chatInput.disabled = false;
             callback();
         }, delay);
@@ -2564,7 +3013,7 @@
                 { text: "📦 Comprar um equipamento ou ferramenta", val: "produtos" },
                 { text: "💡 Dúvidas sobre materiais (Elétricos, Hidráulicos, Ferragens)", val: "materiais" }
             ]);
-        });
+        }, 700);
     }
 
     function handleUserChoice(opt) {
@@ -2656,8 +3105,16 @@
                 return;
             }
 
+            const msgFinal = encodeURIComponent(`Olá, Araguaia Máquinas! Sou ${leadData.nome}, de ${leadData.cidade}. Tenho interesse em ${leadData.interesse || 'Equipamentos'} (${leadData.detalhe || 'Atendimento geral'}). Aguardo retorno.`);
+            const waUrl = `https://wa.me/556230997275?text=${msgFinal}`;
+
             botTyping(() => {
-                addMessage("Obrigada! Estamos salvando seus dados e abrindo o WhatsApp... 🚀", "bot");
+                addMessage(
+                    `Obrigada, <b>${esc(leadData.nome)}</b>! Recebemos seus dados e já estamos abrindo o WhatsApp. 🚀` +
+                    `<a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="chat-wa-direct">` +
+                    `<svg width="16" height="16"><use href="#wa-icon"/></svg> Abrir WhatsApp agora</a>`,
+                    "bot"
+                );
 
                 const scriptUrl = "https://script.google.com/macros/s/AKfycbyYqb8PrswD7cJyivPHNRUut1n0ZXaAb1DPOkMxbIq-x4gSHYiL0n2GM6tA8ypvI1k/exec";
 
@@ -2666,7 +3123,7 @@
                     nome: leadData.nome,
                     telefone: telefone,
                     cidade: leadData.cidade,
-                    produto: leadData.interesse + " - " + leadData.detalhe
+                    produto: (leadData.interesse || "Site") + " - " + (leadData.detalhe || "Atendimento")
                 };
 
                 if (scriptUrl) {
@@ -2678,20 +3135,16 @@
                     }).catch(err => console.error("Erro ao registrar lead:", err));
                 }
 
-                const msgFinal = encodeURIComponent(`Olá, Araguaia Máquinas! Sou ${leadData.nome}, de ${leadData.cidade}. Tenho interesse em ${leadData.interesse} (${leadData.detalhe}). Aguardo retorno.`);
-
                 setTimeout(() => {
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({'event': 'lead_chat'});
 
-                    const waNumber = "556230997275";
-                    const waUrl = `https://wa.me/${waNumber}?text=${msgFinal}`;
                     if (/iPhone|Android|iPad/i.test(navigator.userAgent)) {
                         window.location.href = waUrl;
                     } else {
                         window.open(waUrl, '_blank');
                     }
-                }, 1500);
+                }, 1400);
             });
         }
     }
