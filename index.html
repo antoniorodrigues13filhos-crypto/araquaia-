@@ -183,7 +183,8 @@
         .nav-cta:hover { background-color: rgba(255,184,0,0.25) !important; border-color: rgba(255,184,0,0.6) !important; color: #FFB800 !important; }
         .nav-icons { display: flex; gap: 16px; color: rgba(255,255,255,0.6); }
 
-        #scroll-hero { height: 600vh; position: relative; background-color: #111111; }
+        /* Recalibrado para 153 frames (680vh de percurso efetivo) */
+        #scroll-hero { height: 780vh; position: relative; background-color: #111111; }
 
         .hero-sticky {
             position: sticky;
@@ -978,6 +979,7 @@
     (() => {
         const BASE_URL    = './';
         const FRAME_COUNT = 153;
+        const PLAY_END    = 0.93;
         const IS_MOBILE   = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 1024;
 
         const bitmaps = new Array(FRAME_COUNT);
@@ -989,10 +991,11 @@
         const ctx    = canvas.getContext('2d', { alpha: false, desynchronized: true });
         let cW, cH, dpr, drawX, drawY, drawW, drawH;
 
+        /* Faixas sincronizadas com os 153 frames em 780vh */
         const blocks = [
-            { id: 'copy-1', dot: 'dot-1', start: 0.04, end: 0.26, el: null, dotEl: null, tId: null },
-            { id: 'copy-2', dot: 'dot-2', start: 0.33, end: 0.57, el: null, dotEl: null, tId: null },
-            { id: 'copy-3', dot: 'dot-3', start: 0.69, end: 0.98, el: null, dotEl: null, tId: null }
+            { id: 'copy-1', dot: 'dot-1', start: 0.03, end: 0.27, el: null, dotEl: null, tId: null },
+            { id: 'copy-2', dot: 'dot-2', start: 0.34, end: 0.59, el: null, dotEl: null, tId: null },
+            { id: 'copy-3', dot: 'dot-3', start: 0.67, end: 0.97, el: null, dotEl: null, tId: null }
         ];
 
         let isProcessSectionVisible = false;
@@ -1030,7 +1033,11 @@
             canvas.style.height = cH + 'px';
             ctx.scale(dpr, dpr);
             const ref = bitmaps.find(Boolean);
-            if (ref) computeDraw(ref);
+            if (ref) {
+                computeDraw(ref);
+                lastRenderedFraction = -1;
+                render(currentFraction);
+            }
         }
 
         function computeDraw(bmp) {
@@ -1042,9 +1049,9 @@
         }
 
         function render(fraction) {
-            if (fraction >= 0.99 && lastRenderedFraction >= 0.99) return;
+            if (Math.abs(fraction - lastRenderedFraction) < 0.00001) return;
 
-            const prog  = Math.min(1, fraction / 0.9) * (FRAME_COUNT - 1);
+            const prog  = Math.min(1, fraction / PLAY_END) * (FRAME_COUNT - 1);
             const base  = Math.floor(prog);
             const t     = prog - base;
             const bmpA  = bitmaps[base];
@@ -1057,18 +1064,20 @@
             ctx.globalAlpha = 1;
             ctx.drawImage(bmpA, drawX, drawY, drawW, drawH);
 
-            if (t > 0.015 && bmpB) {
+            if (t > 0.02 && bmpB) {
                 ctx.globalAlpha = t;
                 ctx.drawImage(bmpB, drawX, drawY, drawW, drawH);
                 ctx.globalAlpha = 1;
             }
 
-            if (fraction > 0.88 && !IS_MOBILE) {
-                const zp = (fraction - 0.88) / 0.12;
+            if (fraction > 0.90 && !IS_MOBILE) {
+                const zp = (fraction - 0.90) / 0.10;
                 canvas.style.transform = `scale3d(${1 - zp * 0.04}, ${1 - zp * 0.04}, 1)`;
             } else {
                 canvas.style.transform = 'scale3d(1, 1, 1)';
             }
+
+            lastRenderedFraction = fraction;
         }
 
         function applyText(fraction) {
@@ -1082,11 +1091,11 @@
                     b.el.classList.add('active');
                     if (b.dotEl) b.dotEl.classList.add('active');
 
-                    const drift = (fraction - b.start) * (window.innerHeight * 0.55);
+                    const drift = (fraction - b.start) * (window.innerHeight * 0.45);
                     b.el.style.transform = `translate3d(0, ${-drift.toFixed(2)}px, 0)`;
 
                     if (b.id === 'copy-1') {
-                        const fill = Math.min(100, ((fraction - b.start) / 0.14) * 100);
+                        const fill = Math.min(100, ((fraction - b.start) / 0.15) * 100);
                         document.documentElement.style.setProperty('--fill-width', fill.toFixed(1) + '%');
                     }
                 } else {
@@ -1113,14 +1122,13 @@
             lastScrollY      = curScrollY;
             const delta = targetFraction - currentFraction;
 
-            if (Math.abs(delta) > 0.00005) {
-                const base = IS_MOBILE ? 0.12 : 0.08;
-                const lerp = Math.min(IS_MOBILE ? 0.35 : 0.15, base + velocity * 0.0008);
+            if (Math.abs(delta) > 0.00003) {
+                const base = IS_MOBILE ? 0.11 : 0.065;
+                const lerp = Math.min(IS_MOBILE ? 0.32 : 0.14, base + velocity * 0.0006);
                 currentFraction += delta * lerp;
                 currentFraction = Math.max(0, Math.min(1, currentFraction));
 
                 render(currentFraction);
-                lastRenderedFraction = currentFraction;
                 applyText(currentFraction);
             }
             rafId = requestAnimationFrame(loop);
@@ -1190,7 +1198,7 @@
             initBlocks();
             lockHeroHeight();
 
-            const CONCURRENCY = IS_MOBILE ? 4 : 8;
+            const CONCURRENCY = IS_MOBILE ? 4 : 10;
             const queue = [];
             for (let i = 0; i < FRAME_COUNT; i++) queue.push(i);
 
@@ -1233,10 +1241,6 @@
             await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
             recalcLayout();
-            if (bitmaps[0]) {
-                computeDraw(bitmaps[0]);
-            }
-            render(0);
             applyText(0);
 
             loaderEl.style.opacity = '0';
