@@ -9,8 +9,8 @@
     <link rel="apple-touch-icon" href="assets/img/favicon.webp">
 
     <!-- SEO Otimizado para Anápolis -->
-    <title>Araguaia Máquinas em Anápolis | Motosserras, Roçadeiras e Ferramentas</title>
-    <meta name="description" content="Compre motosserras Stihl, roçadeiras, lavadoras de alta pressão e ferramentas em Anápolis - GO. Produtos originais e atendimento especializado na Araguaia Máquinas.">
+    <title>Araguaia Máquinas em Anápolis | Ferramentas, Máquinas e Construção</title>
+    <meta name="description" content="Compre lixadeira telescópica SGT, martelete 10J SGT-5700 Pro, serra mármore SGT-5200, pulverizador Snow Foam e soprador Kress em Anápolis - GO. Atendimento especializado na Araguaia Máquinas.">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -67,13 +67,13 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Araguaia Máquinas">
 
-    <!-- Fontes do Google (Otimizadas para não bloquear a renderização) -->
+    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap">
     </noscript>
 
     <style>
@@ -84,18 +84,17 @@
             --fill-width: 0%;
         }
 
-        /* Classes de Alta Performance */
         .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         .py-32-px-8 { padding: 128px 8%; }
 
-        /* SOLUÇÃO DEFINITIVA: TODAS AS IMAGENS CRAVADAS EM 90% */
+        /* Galeria e Imagens dos Produtos */
         .product-img-wrapper {
             display: block;
             width: 100%;
             aspect-ratio: 1 / 1;
             overflow: hidden;
             position: relative;
-            background: radial-gradient(circle at center, rgba(255,184,0,0.05), transparent);
+            background: radial-gradient(circle at center, rgba(255,184,0,0.06), transparent);
         }
         .product-image {
             position: absolute;
@@ -105,10 +104,65 @@
             height: 90%;
             object-fit: contain;
             filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.6));
-            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
         }
         .product-card:hover .product-image {
-            transform: scale(1.08);
+            transform: scale(1.06);
+        }
+
+        .card-gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(17, 17, 17, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 0.5px solid rgba(255, 255, 255, 0.18);
+            color: #F8F8F8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 6;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .card-gallery-btn:hover {
+            background: #FFB800;
+            border-color: #FFB800;
+            color: #111111;
+        }
+        .card-gallery-prev { left: 10px; }
+        .card-gallery-next { right: 10px; }
+
+        .card-gallery-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 6;
+            padding: 5px 9px;
+            border-radius: 100px;
+            background: rgba(17, 17, 17, 0.55);
+            backdrop-filter: blur(8px);
+        }
+        .card-gallery-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .card-gallery-dot.active {
+            background: #FFB800;
+            transform: scale(1.25);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -242,6 +296,12 @@
 
         #produtos { position: relative; z-index: 40; margin-top: -100vh; margin-top: -100svh; padding-top: 15vh; background: linear-gradient(to bottom, transparent, #111111 15vh, #111111 100%); }
 
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 24px;
+        }
+
         .product-card {
             scroll-margin-top: 130px;
             opacity: 0; transform: translate3d(0, 40px, 0);
@@ -262,17 +322,35 @@
         }
         @keyframes highlight-pulse { 0% { box-shadow: 0 0 40px rgba(255,184,0,0.5); } 100% { box-shadow: 0 0 30px rgba(255,184,0,0.15); } }
 
-        .product-badge { position: absolute; top: 16px; left: 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 6px; z-index: 5; }
+        .product-badge { position: absolute; top: 16px; left: 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 6px; z-index: 7; }
         .badge-hot { background-color: #FFB800; color: #111111; }
-        .badge-pro { background-color: rgba(255,255,255,0.06); color: #FFB800; border: 0.5px solid rgba(255,184,0,0.35); }
+        .badge-pro { background-color: rgba(17,17,17,0.8); color: #FFB800; border: 0.5px solid rgba(255,184,0,0.45); }
         .badge-new { background-color: #F8F8F8; color: #111111; }
-        .product-features { font-size: 12px; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.9; margin-bottom: 20px; border-left: 2px solid rgba(255,184,0,0.2); padding-left: 12px; }
+
+        .product-brand { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #FFB800; font-weight: 600; margin-bottom: 6px; }
+        .product-name { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 0.03em; color: #F8F8F8; margin-bottom: 10px; line-height: 1.2; }
+        .product-desc { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 300; line-height: 1.7; margin-bottom: 16px; }
+        .product-features { font-size: 12px; color: rgba(255,255,255,0.58); font-weight: 300; line-height: 1.85; margin-bottom: 22px; border-left: 2px solid rgba(255,184,0,0.3); padding-left: 12px; }
         .product-features li { list-style: none; }
-        .product-price-old { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: line-through; margin-bottom: 2px; }
-        .product-price-new { font-family: 'Anton', sans-serif; font-size: 30px; letter-spacing: 0.02em; color: #FFB800; margin-bottom: 2px; }
-        .product-price-inst { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
-        .product-buy-btn { width: 100%; padding: 14px; border-radius: 12px; background-color: rgba(255,184,0,0.1); border: 0.5px solid rgba(255,184,0,0.35); color: #FFB800; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; cursor: pointer; }
-        .product-buy-btn:hover { background-color: #FFB800; color: #111111; border-color: #FFB800; }
+        .product-consult { font-size: 11px; color: rgba(255,255,255,0.55); margin-bottom: 12px; letter-spacing: 0.04em; }
+
+        .product-wa-btn {
+            width: 100%; padding: 14px 18px; border-radius: 12px;
+            background: linear-gradient(135deg, #25D366, #1DA851);
+            border: 0.5px solid rgba(37, 211, 102, 0.5);
+            color: #0B1910;
+            font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+            display: flex; align-items: center; justify-content: center; gap: 9px;
+            box-shadow: 0 8px 22px -8px rgba(37, 211, 102, 0.45);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            cursor: pointer;
+        }
+        .product-wa-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px -6px rgba(37, 211, 102, 0.65);
+            filter: brightness(1.06);
+        }
 
         .section-label { font-size: 10px; letter-spacing: 0.5em; color: #FFB800; text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 16px; }
         .section-title { font-family: 'Anton', sans-serif; font-size: clamp(40px, 8vw, 88px); letter-spacing: 0.05em; line-height: 1.15; color: #F8F8F8; }
@@ -528,7 +606,7 @@
                     <div><span class="word-wrap"><span class="hero-word">LINHA</span></span></div>
                     <div><span class="word-wrap"><span class="hero-word">DE</span></span> <span class="word-wrap"><span class="hero-word accent">EQUIPAMENTOS.</span></span></div>
                 </div>
-                <p class="hero-sub side-line">Ampla linha incluindo compressores, lavadoras, aspiradores, ferramentas elétricas, geradores e jardinagem.</p>
+                <p class="hero-sub side-line">Ampla linha incluindo lixadeiras, marteletes, serras mármore, sopradores, pulverizadores e ferramentas profissionais.</p>
             </div>
 
             <div id="copy-3" class="hero-block" style="top:30%;">
@@ -561,115 +639,152 @@
                 </h2>
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;">
+            <div class="products-grid">
 
-                <!-- Motosserra -->
-                <div class="product-card" id="produto-motosserra">
-                    <span class="product-badge badge-hot">Campeã de vendas</span>
-                    <a href="produto.html?id=motosserra-ms-172" class="product-img-wrapper">
-                        <img src="assets/img/motosserra-ms-172.webp" alt="Motosserra a Combustão MS 172" loading="lazy" decoding="async" width="896" height="1200" class="product-image">
-                    </a>
+                <!-- 1. LIXADEIRA TELESCOPICA SGT -->
+                <article class="product-card" id="produto-lixadeira">
+                    <span class="product-badge badge-pro">Acabamento PRO</span>
+                    <div class="product-img-wrapper">
+                        <img src="LIXADEIRA/Captura_de_tela_2026-11-11_064807.png_7416e2a7_2K.webp" alt="Lixadeira Telescópica SGT" loading="lazy" decoding="async" class="product-image">
+                        <button type="button" class="card-gallery-btn card-gallery-prev" aria-label="Foto anterior">‹</button>
+                        <button type="button" class="card-gallery-btn card-gallery-next" aria-label="Próxima foto">›</button>
+                        <div class="card-gallery-dots"></div>
+                    </div>
                     <div style="padding:28px;display:flex;flex-direction:column;flex-grow:1;">
-                        <h3 style="font-family:'Anton',sans-serif;font-size:22px;letter-spacing:0.03em;color:#F8F8F8;margin-bottom:8px;">MOTOSSERRA MS 172</h3>
-                        <p style="color:rgba(255,255,255,0.6);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;">A lenda compacta. Potência na medida exata para cortes rápidos e manutenção do terreno.</p>
+                        <span class="product-brand">SGT Tools</span>
+                        <h3 class="product-name">LIXADEIRA TELESCÓPICA SGT</h3>
+                        <p class="product-desc">Ideal para lixamento rápido e uniforme em paredes, tetos, gesso, drywall e massa corrida. O cabo telescópico amplia o alcance com menos esforço e mais produtividade na obra.</p>
                         <ul class="product-features">
-                            <li>Motor 2-MIX super econômico</li>
-                            <li>Ultra leve — apenas 4.3 kg</li>
-                            <li>Partida rápida e segura</li>
+                            <li>Cabo telescópico para alcance em tetos e paredes altas</li>
+                            <li>Acabamento uniforme em drywall e massa corrida</li>
+                            <li>Ergonomia pensada para jornadas prolongadas</li>
                         </ul>
                         <div style="margin-top:auto;">
-                            <p class="product-price-old">De R$ 1.599,00</p>
-                            <p class="product-price-new">R$ 1.471,08</p>
-                            <p class="product-price-inst">ou 10x de R$ 159,90 sem juros</p>
-                            <a href="produto.html?id=motosserra-ms-172" class="product-buy-btn" aria-label="Ver detalhes da Motosserra MS 172">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                Ver Detalhes
+                            <p class="product-consult">Garantia de fábrica • Nota Fiscal • Envio para todo o Brasil</p>
+                            <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Tenho%20interesse%20na%20LIXADEIRA%20TELESC%C3%93PICA%20SGT.%20Pode%20me%20passar%20o%20valor%20e%20condi%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer" class="product-wa-btn" onclick="trackProductWhatsApp('LIXADEIRA TELESCOPICA SGT')">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.72.45 3.39 1.3 4.86L2 22l5.36-1.4a9.9 9.9 0 0 0 4.68 1.19h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.65-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+                                Chamar no WhatsApp
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Roçadeira -->
-                <div class="product-card" id="produto-rocadeira">
-                    <span class="product-badge badge-pro">Uso profissional</span>
-                    <a href="produto.html?id=rocadeira-fs-120" class="product-img-wrapper">
-                        <img src="assets/img/rocadeira-fs-120.webp" alt="Roçadeira a Combustão FS 120" loading="lazy" decoding="async" width="896" height="1200" class="product-image">
-                    </a>
+                <!-- 2. MARTELETE 10J SGT-5700 PRO -->
+                <article class="product-card" id="produto-martelete">
+                    <span class="product-badge badge-hot">Linha Pesada • 10J</span>
+                    <div class="product-img-wrapper">
+                        <img src="MARTELETE/Captura_de_tela_2026-11-11_064614.png_6e009802_2K.webp" alt="Martelete 10J SGT-5700 Pro" loading="lazy" decoding="async" class="product-image">
+                        <button type="button" class="card-gallery-btn card-gallery-prev" aria-label="Foto anterior">‹</button>
+                        <button type="button" class="card-gallery-btn card-gallery-next" aria-label="Próxima foto">›</button>
+                        <div class="card-gallery-dots"></div>
+                    </div>
                     <div style="padding:28px;display:flex;flex-direction:column;flex-grow:1;">
-                        <h3 style="font-family:'Anton',sans-serif;font-size:22px;letter-spacing:0.03em;color:#F8F8F8;margin-bottom:8px;">ROÇADEIRA FS 120</h3>
-                        <p style="color:rgba(255,255,255,0.6);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;">Excelente para roçada de mato emaranhado e capoeiras altas. Potente e confiável.</p>
+                        <span class="product-brand">SGT Tools</span>
+                        <h3 class="product-name">MARTELETE 10J SGT-5700 PRO</h3>
+                        <p class="product-desc">Força bruta com 10 Joules de energia de impacto para perfurações pesadas e demolições em concreto e alvenaria. Construção reforçada da linha PRO para encarar obras exigentes.</p>
                         <ul class="product-features">
-                            <li>Lâmina de 3 facas Ø 250 mm</li>
-                            <li>Fio de nylon</li>
-                            <li>Trabalhos exigentes em mato alto</li>
+                            <li>Alta energia de impacto: 10 Joules</li>
+                            <li>Estrutura robusta linha SGT PRO</li>
+                            <li>Indicado para concreto, pedra e alvenaria</li>
                         </ul>
                         <div style="margin-top:auto;">
-                            <p class="product-price-old">De R$ 2.219,00</p>
-                            <p class="product-price-new">R$ 2.041,48</p>
-                            <p class="product-price-inst">ou 10x de R$ 221,90 sem juros</p>
-                            <a href="produto.html?id=rocadeira-fs-120" class="product-buy-btn" aria-label="Ver detalhes da Roçadeira FS 120">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                Ver Detalhes
+                            <p class="product-consult">Garantia de fábrica • Nota Fiscal • Envio para todo o Brasil</p>
+                            <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Tenho%20interesse%20no%20MARTELETE%2010J%20SGT-5700%20PRO.%20Pode%20me%20passar%20o%20valor%20e%20condi%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer" class="product-wa-btn" onclick="trackProductWhatsApp('MARTELETE 10J SGT-5700 PRO')">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.72.45 3.39 1.3 4.86L2 22l5.36-1.4a9.9 9.9 0 0 0 4.68 1.19h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.65-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+                                Chamar no WhatsApp
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Lavadora -->
-                <div class="product-card" id="produto-lavadora">
-                    <a href="produto.html?id=lavadora-re-90-plus" class="product-img-wrapper">
-                        <img src="assets/img/lavadora-re-90-plus.webp" alt="Lavadora de Alta Pressão RE 90 PLUS" loading="lazy" decoding="async" width="1200" height="896" class="product-image">
-                    </a>
+                <!-- 3. PULVERIZADOR 2LT SNOW FOAM MANUAL SGT -->
+                <article class="product-card" id="produto-pulverizador">
+                    <span class="product-badge badge-new">Estética Automotiva</span>
+                    <div class="product-img-wrapper">
+                        <img src="PULVERIZADOR/Captura_de_tela_2026-11-11_064228.png_26d205c3.webp" alt="Pulverizador 2LT Snow Foam Manual SGT" loading="lazy" decoding="async" class="product-image">
+                        <button type="button" class="card-gallery-btn card-gallery-prev" aria-label="Foto anterior">‹</button>
+                        <button type="button" class="card-gallery-btn card-gallery-next" aria-label="Próxima foto">›</button>
+                        <div class="card-gallery-dots"></div>
+                    </div>
                     <div style="padding:28px;display:flex;flex-direction:column;flex-grow:1;">
-                        <h3 style="font-family:'Anton',sans-serif;font-size:22px;letter-spacing:0.03em;color:#F8F8F8;margin-bottom:8px;">LAVADORA RE 90 PLUS</h3>
-                        <p style="color:rgba(255,255,255,0.6);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;">Uma lavadora de alta pressão eficiente e confiável para uso ocasional em diversas tarefas de limpeza.</p>
+                        <span class="product-brand">SGT Tools</span>
+                        <h3 class="product-name">PULVERIZADOR 2LT SNOW FOAM MANUAL SGT</h3>
+                        <p class="product-desc">Pulverizador manual de pressão prévia com reservatório de 2 litros que gera espuma densa tipo Snow Foam sem precisar de energia elétrica ou lavadora de alta pressão.</p>
                         <ul class="product-features">
-                            <li>Uso ocasional</li>
-                            <li>Tarefas diversas de limpeza</li>
-                            <li>Voltagem 127V ou 220V</li>
+                            <li>Reservatório resistente de 2 litros</li>
+                            <li>Espuma densa e uniforme para pré-lavagem</li>
+                            <li>Prático para estética automotiva e limpeza geral</li>
                         </ul>
                         <div style="margin-top:auto;">
-                            <p class="product-price-old">De R$ 1.599,00</p>
-                            <p class="product-price-new">R$ 1.471,08</p>
-                            <p class="product-price-inst">ou 10x de R$ 159,90 sem juros</p>
-                            <a href="produto.html?id=lavadora-re-90-plus" class="product-buy-btn" aria-label="Ver detalhes da Lavadora RE 90 PLUS">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                Ver Detalhes
+                            <p class="product-consult">Garantia de fábrica • Nota Fiscal • Envio para todo o Brasil</p>
+                            <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Tenho%20interesse%20no%20PULVERIZADOR%202LT%20SNOW%20FOAM%20MANUAL%20SGT.%20Pode%20me%20passar%20o%20valor%20e%20condi%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer" class="product-wa-btn" onclick="trackProductWhatsApp('PULVERIZADOR 2LT SNOW FOAM MANUAL SGT')">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.72.45 3.39 1.3 4.86L2 22l5.36-1.4a9.9 9.9 0 0 0 4.68 1.19h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.65-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+                                Chamar no WhatsApp
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Soprador -->
-                <div class="product-card" id="produto-soprador">
-                    <span class="product-badge badge-new">Inovação a bateria</span>
-                    <a href="produto.html?id=soprador-bg-50" class="product-img-wrapper">
-                        <img src="assets/img/soprador-bg-50.webp" alt="Soprador a combustão BG 50" loading="lazy" decoding="async" width="896" height="1200" class="product-image">
-                    </a>
+                <!-- 4. SERRA MÁRMORE PRO 1300W 220V SGT-5200 -->
+                <article class="product-card" id="produto-serra">
+                    <span class="product-badge badge-hot">1300W • 220V</span>
+                    <div class="product-img-wrapper">
+                        <img src="Serra/Improve_quality._16750caf.webp" alt="Serra Mármore Pro 1300W 220V SGT-5200" loading="lazy" decoding="async" class="product-image">
+                        <button type="button" class="card-gallery-btn card-gallery-prev" aria-label="Foto anterior">‹</button>
+                        <button type="button" class="card-gallery-btn card-gallery-next" aria-label="Próxima foto">›</button>
+                        <div class="card-gallery-dots"></div>
+                    </div>
                     <div style="padding:28px;display:flex;flex-direction:column;flex-grow:1;">
-                        <h3 style="font-family:'Anton',sans-serif;font-size:22px;letter-spacing:0.03em;color:#F8F8F8;margin-bottom:8px;">SOPRADOR BG 50</h3>
-                        <p style="color:rgba(255,255,255,0.6);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;">Ferramenta confiável e eficaz para limpeza de folhas e detritos. Perfeito para uso profissional ou ocasional.</p>
+                        <span class="product-brand">SGT Tools</span>
+                        <h3 class="product-name">SERRA MÁRMORE PRO 1300W 220V SGT-5200</h3>
+                        <p class="product-desc">Motor potente de 1300W em 220V desenvolvido para cortes rápidos, firmes e precisos em mármore, granito, porcelanato, cerâmica, pisos e alvenaria.</p>
                         <ul class="product-features">
-                            <li>Leve e fácil de usar</li>
-                            <li>Limpeza de folhas e detritos</li>
-                            <li>Uso profissional e ocasional</li>
+                            <li>Potência de 1300W — linha profissional PRO</li>
+                            <li>Voltagem 220V para alto rendimento contínuo</li>
+                            <li>Cortes precisos em pisos, pedras e porcelanato</li>
                         </ul>
                         <div style="margin-top:auto;">
-                            <p class="product-price-old">De R$ 1.619,00</p>
-                            <p class="product-price-new" style="margin-top:2px;">R$ 1.489,48</p>
-                            <p class="product-price-inst">ou 10x de R$ 161,90 sem juros</p>
-                            <a href="produto.html?id=soprador-bg-50" class="product-buy-btn" aria-label="Ver detalhes do Soprador BG 50">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                Ver Detalhes
+                            <p class="product-consult">Garantia de fábrica • Nota Fiscal • Envio para todo o Brasil</p>
+                            <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Tenho%20interesse%20na%20Serra%20M%C3%A1rmore%20Pro%201300w%20220v%20Sgt-5200.%20Pode%20me%20passar%20o%20valor%20e%20condi%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer" class="product-wa-btn" onclick="trackProductWhatsApp('Serra Mármore Pro 1300w 220v Sgt-5200')">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.72.45 3.39 1.3 4.86L2 22l5.36-1.4a9.9 9.9 0 0 0 4.68 1.19h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.65-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+                                Chamar no WhatsApp
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- 5. SOPRADOR DE FOLHAS 18V+18V KG584.9 KRESS -->
+                <article class="product-card" id="produto-soprador">
+                    <span class="product-badge badge-new">Bateria 18V+18V</span>
+                    <div class="product-img-wrapper">
+                        <img src="SOPRADOR/Captura_de_tela_2026-11-11_063529.png_f959659c.webp" alt="Soprador de Folhas 18V+18V KG584.9 Kress" loading="lazy" decoding="async" class="product-image">
+                        <button type="button" class="card-gallery-btn card-gallery-prev" aria-label="Foto anterior">‹</button>
+                        <button type="button" class="card-gallery-btn card-gallery-next" aria-label="Próxima foto">›</button>
+                        <div class="card-gallery-dots"></div>
+                    </div>
+                    <div style="padding:28px;display:flex;flex-direction:column;flex-grow:1;">
+                        <span class="product-brand">KRESS</span>
+                        <h3 class="product-name">SOPRADOR DE FOLHAS 18V+18V KG584.9 KRESS</h3>
+                        <p class="product-desc">Liberdade total sem fios com sistema duplo 18V+18V (36V). Alto volume de sopro e baixo nível de ruído para limpeza rápida de folhas, grama e detritos em jardins e pátios.</p>
+                        <ul class="product-features">
+                            <li>Sistema a bateria duplo 18V+18V (36V)</li>
+                            <li>Alta vazão de ar com operação silenciosa</li>
+                            <li>Leve, equilibrado e sem emissão de fumaça</li>
+                        </ul>
+                        <div style="margin-top:auto;">
+                            <p class="product-consult">Garantia de fábrica • Nota Fiscal • Envio para todo o Brasil</p>
+                            <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Tenho%20interesse%20no%20SOPRADOR%20DE%20FOLHAS%2018V%2B18V%20KG584.9%20KRESS.%20Pode%20me%20passar%20o%20valor%20e%20condi%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer" class="product-wa-btn" onclick="trackProductWhatsApp('SOPRADOR DE FOLHAS 18V+18V KG584.9 KRESS')">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.72.45 3.39 1.3 4.86L2 22l5.36-1.4a9.9 9.9 0 0 0 4.68 1.19h.01c5.46 0 9.9-4.45 9.9-9.9 0-2.65-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+                                Chamar no WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
             </div>
 
             <div style="text-align:center;margin-top:48px;" class="reveal">
-                <a href="catalogo.html" class="cta-btn-outline" style="display:inline-block;">Ver catálogo completo</a>
+                <a href="https://wa.me/556230997275?text=Ol%C3%A1%2C%20Araguaia%20M%C3%A1quinas!%20Gostaria%20de%20receber%20o%20cat%C3%A1logo%20completo%20de%20produtos." target="_blank" rel="noopener noreferrer" class="cta-btn-outline" style="display:inline-block;">Solicitar catálogo completo no WhatsApp</a>
             </div>
 
         </div>
@@ -677,6 +792,8 @@
 
     <div class="brand-strip" style="margin:0;">
         <div class="brand-track" id="brand-track">
+            <span class="brand-item">SGT TOOLS</span><div class="brand-dot"></div>
+            <span class="brand-item">KRESS</span><div class="brand-dot"></div>
             <span class="brand-item">STIHL</span><div class="brand-dot"></div>
             <span class="brand-item">HUSQVARNA</span><div class="brand-dot"></div>
             <span class="brand-item">TRAMONTINA</span><div class="brand-dot"></div>
@@ -685,9 +802,9 @@
             <span class="brand-item">MAKITA</span><div class="brand-dot"></div>
             <span class="brand-item">BOSCH</span><div class="brand-dot"></div>
             <span class="brand-item">ECHO</span><div class="brand-dot"></div>
-            <span class="brand-item">TORO</span><div class="brand-dot"></div>
-            <span class="brand-item">GREENWORKS</span><div class="brand-dot"></div>
             <!-- duplicado para o loop infinito -->
+            <span class="brand-item">SGT TOOLS</span><div class="brand-dot"></div>
+            <span class="brand-item">KRESS</span><div class="brand-dot"></div>
             <span class="brand-item">STIHL</span><div class="brand-dot"></div>
             <span class="brand-item">HUSQVARNA</span><div class="brand-dot"></div>
             <span class="brand-item">TRAMONTINA</span><div class="brand-dot"></div>
@@ -696,8 +813,6 @@
             <span class="brand-item">MAKITA</span><div class="brand-dot"></div>
             <span class="brand-item">BOSCH</span><div class="brand-dot"></div>
             <span class="brand-item">ECHO</span><div class="brand-dot"></div>
-            <span class="brand-item">TORO</span><div class="brand-dot"></div>
-            <span class="brand-item">GREENWORKS</span><div class="brand-dot"></div>
         </div>
     </div>
 
@@ -814,9 +929,9 @@
         <div style="max-width:1200px;margin:0 auto;">
             <div style="text-align:center;margin-bottom:64px;"><span class="section-label reveal">O que dizem nossos clientes</span><h2 class="section-title reveal reveal-delay-1">Confiança construída<br><span style="color:#FFB800;">na prática</span></h2></div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-                <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-quote">"Comprei a roçadeira FS 120 numa sexta e recebi na terça. Loja excelente com muita variedade em Anápolis!"</p><div class="testimonial-author">Ricardo Fonseca</div><div class="testimonial-role">Produtor Rural</div></div>
+                <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-quote">"Comprei meus equipamentos numa sexta e recebi na terça. Loja excelente com muita variedade em Anápolis!"</p><div class="testimonial-author">Ricardo Fonseca</div><div class="testimonial-role">Produtor Rural</div></div>
                 <div class="testimonial-card reveal reveal-delay-1"><div class="stars">★★★★★</div><p class="testimonial-quote">"Encontrei tudo em hidráulicos e ferramentas elétricas num só lugar. Atendimento nota 10 no WhatsApp."</p><div class="testimonial-author">Fernanda Luz</div><div class="testimonial-role">Construtora e Sítio</div></div>
-                <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-quote">"Variedade imbatível em compressores e geradores. Venha conhecer nossa loja física, vale muito a pena!"</p><div class="testimonial-author">Paulo Magalhães</div><div class="testimonial-role">Cliente Araguaia Máquinas</div></div>
+                <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-quote">"Variedade imbatível em máquinas e ferramentas profissionais. Venha conhecer nossa loja física, vale muito a pena!"</p><div class="testimonial-author">Paulo Magalhães</div><div class="testimonial-role">Cliente Araguaia Máquinas</div></div>
             </div>
         </div>
     </section>
@@ -890,11 +1005,12 @@
                 <div style="margin-bottom:28px;"><label class="contact-form-label" for="form-produto">Equipamento ou material de interesse</label>
                     <select id="form-produto" class="contact-form-input">
                         <option value="" disabled selected>Selecione uma opção...</option>
-                        <option>Compressores / Lavadoras / Aspiradores</option>
-                        <option>Ferramentas Elétricas / Geradores</option>
-                        <option>Jardinagem e Equipamentos</option>
-                        <option>Ferragens / Hidráulicos / Elétricos</option>
-                        <option>Ainda não sei</option>
+                        <option>Lixadeira Telescópica SGT</option>
+                        <option>Martelete 10J SGT-5700 Pro</option>
+                        <option>Pulverizador 2LT Snow Foam Manual SGT</option>
+                        <option>Serra Mármore Pro 1300W 220V SGT-5200</option>
+                        <option>Soprador de Folhas 18V+18V KG584.9 Kress</option>
+                        <option>Outros equipamentos / Materiais</option>
                     </select>
                 </div>
                 <div style="margin-bottom:28px;"><label class="contact-form-label" for="form-msg">Conte o que você precisa</label><textarea id="form-msg" class="contact-form-input" placeholder="Detalhes do seu projeto ou produto desejado..."></textarea></div>
@@ -922,10 +1038,11 @@
                     <a href="#produtos" class="footer-link">Produtos</a>
                 </div>
                 <div>
-                    <div class="footer-col-title">Catálogo</div>
-                    <a href="catalogo.html" class="footer-link">Máquinas e Ferramentas</a>
-                    <a href="catalogo.html" class="footer-link">Compressores e Lavadoras</a>
-                    <a href="catalogo.html" class="footer-link">Hidráulicos e Elétricos</a>
+                    <div class="footer-col-title">Produtos</div>
+                    <a href="#produto-lixadeira" class="footer-link">Lixadeira Telescópica SGT</a>
+                    <a href="#produto-martelete" class="footer-link">Martelete 10J SGT-5700 Pro</a>
+                    <a href="#produto-serra" class="footer-link">Serra Mármore SGT-5200</a>
+                    <a href="#produto-soprador" class="footer-link">Soprador Kress 18V+18V</a>
                 </div>
                 <div>
                     <div class="footer-col-title">Contato</div>
@@ -977,10 +1094,84 @@
 
     <script>
     (() => {
+        /* =========================================================
+           GALERIA INTERATIVA DOS 5 PRODUTOS (CAMINHOS EXATOS DO GIT)
+           ========================================================= */
+        const PRODUCT_GALLERIES = {
+            'produto-lixadeira': [
+                'LIXADEIRA/Captura_de_tela_2026-11-11_064807.png_7416e2a7_2K.webp',
+                'LIXADEIRA/Captura_de_tela_2026-11-11_064904.png_16f963f0_2K.webp',
+                'LIXADEIRA/Captura_de_tela_2026-11-11_064904.png_d164ad09_2K.webp',
+                'LIXADEIRA/Captura_de_tela_2026-11-11_064937.png_b55590c0_2K.webp',
+                'LIXADEIRA/Captura_de_tela_2026-11-11_064957.png_33440110_2K.webp'
+            ],
+            'produto-martelete': [
+                'MARTELETE/Captura_de_tela_2026-11-11_064614.png_6e009802_2K.webp',
+                'MARTELETE/Captura_de_tela_2026-11-11_064636.png_81311d20_2K.webp',
+                'MARTELETE/Captura_de_tela_2026-11-11_064654.png_4633e3b7_2K.webp',
+                'MARTELETE/Captura_de_tela_2026-11-11_064654.png_e66d9049.webp',
+                'MARTELETE/Captura_de_tela_2026-11-11_064717.png_7a083361%20(1).webp'
+            ],
+            'produto-pulverizador': [
+                'PULVERIZADOR/Captura_de_tela_2026-11-11_064228.png_26d205c3.webp',
+                'PULVERIZADOR/Captura_de_tela_2026-11-11_064228.png_397fc951.webp',
+                'PULVERIZADOR/Captura_de_tela_2026-11-11_064407.png_3bd1e325.webp',
+                'PULVERIZADOR/Captura_de_tela_2026-11-11_064446.png_b8f4faf3.webp'
+            ],
+            'produto-serra': [
+                'Serra/Improve_quality._16750caf.webp',
+                'Serra/Captura_de_tela_2026-11-11_063822.png_8cfe97e8.webp',
+                'Serra/Captura_de_tela_2026-11-11_063921.png_d0f57c59.webp',
+                'Serra/Captura_de_tela_2026-11-11_064027.png_4e82beab.webp',
+                'Serra/Captura_de_tela_2026-11-11_064047.png_72572415.webp',
+                'Serra/Captura_de_tela_2026-11-11_064108.png_a817b659.webp'
+            ],
+            'produto-soprador': [
+                'SOPRADOR/Captura_de_tela_2026-11-11_063529.png_f959659c.webp',
+                'SOPRADOR/Captura_de_tela_2026-11-11_063702.png_ab72d648.webp',
+                'SOPRADOR/Captura_de_tela_2026-11-11_063720.png_34bc7785.webp'
+            ]
+        };
+
+        Object.entries(PRODUCT_GALLERIES).forEach(([cardId, images]) => {
+            const card = document.getElementById(cardId);
+            if (!card || !images.length) return;
+
+            const imgEl = card.querySelector('.product-image');
+            const prevBtn = card.querySelector('.card-gallery-prev');
+            const nextBtn = card.querySelector('.card-gallery-next');
+            const dotsWrap = card.querySelector('.card-gallery-dots');
+            let idx = 0;
+
+            const dots = images.map((_, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'card-gallery-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Ver foto ${i + 1}`);
+                dot.addEventListener('click', () => setSlide(i));
+                dotsWrap.appendChild(dot);
+                return dot;
+            });
+
+            function setSlide(newIdx) {
+                idx = (newIdx + images.length) % images.length;
+                imgEl.style.opacity = '0.35';
+                imgEl.src = images[idx];
+                imgEl.onload = () => { imgEl.style.opacity = '1'; };
+                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => setSlide(idx - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => setSlide(idx + 1));
+        });
+
+        /* =========================================================
+           HERO MOTION (110 FRAMES: 0083.webp até 0192.webp)
+           ========================================================= */
         const BASE_URL    = './';
         const START_FRAME = 83;
         const END_FRAME   = 192;
-        const FRAME_COUNT = END_FRAME - START_FRAME + 1; // 110 frames (0083.webp até 0192.webp)
+        const FRAME_COUNT = END_FRAME - START_FRAME + 1;
         const PLAY_END    = 0.90;
         const IS_MOBILE   = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 1024;
 
@@ -1330,6 +1521,14 @@
         loadAll();
     })();
 
+    function trackProductWhatsApp(productName) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'lead_produto_whatsapp',
+            produto: productName
+        });
+    }
+
     function toggleFaq(trigger) {
         const item = trigger.closest('.faq-item');
         const isOpen = item.classList.contains('open');
@@ -1487,12 +1686,13 @@
         if (opt.val === 'produtos') {
             leadData.interesse = "Máquinas e Ferramentas";
             botTyping(() => {
-                addMessage("Ótimo! Qual linha de equipamentos você está buscando?", "bot");
+                addMessage("Ótimo! Qual equipamento você está buscando?", "bot");
                 addOptions([
-                    { text: "⚡ Compressores / Lavadoras / Aspiradores", val: "Compressores/Lavadoras/Aspiradores" },
-                    { text: "🔌 Ferramentas Elétricas / Geradores", val: "Ferramentas Elétricas/Geradores" },
-                    { text: "🌱 Jardinagem e Equipamentos", val: "Jardinagem" },
-                    { text: "🪚 Motosserra ou Roçadeira", val: "Motosserra ou Roçadeira" }
+                    { text: "🧱 Lixadeira Telescópica SGT", val: "Lixadeira Telescópica SGT" },
+                    { text: "🔨 Martelete 10J SGT-5700 Pro", val: "Martelete 10J SGT-5700 Pro" },
+                    { text: "🫧 Pulverizador 2LT Snow Foam SGT", val: "Pulverizador 2LT Snow Foam Manual SGT" },
+                    { text: "⚡ Serra Mármore Pro 1300W SGT-5200", val: "Serra Mármore Pro 1300W 220V SGT-5200" },
+                    { text: "🍃 Soprador 18V+18V KG584.9 Kress", val: "Soprador de Folhas 18V+18V KG584.9 Kress" }
                 ]);
             });
         } else if (opt.val === 'materiais') {
