@@ -83,7 +83,6 @@
             --brand-dark: #111111;
             --tt-cyan: #25F4EE;
             --tt-pink: #FE2C55;
-            --fill-width: 0%;
         }
 
         .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -94,7 +93,9 @@
         html {
             overscroll-behavior-y: none;
             background-color: #111111;
-            scroll-behavior: smooth;
+        }
+        @media (min-width: 769px) {
+            html { scroll-behavior: smooth; }
         }
 
         body {
@@ -109,6 +110,7 @@
         body.intro-locked {
             overflow: hidden;
             height: 100vh;
+            height: 100svh;
         }
 
         body::before {
@@ -438,13 +440,15 @@
             transform: scale(1);
             filter: brightness(1);
         }
+        body.hero-settled .hero-canvas-stage {
+            will-change: auto;
+            filter: none;
+        }
 
         #hero-canvas {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
-            will-change: transform, opacity;
             backface-visibility: hidden;
-            transform-style: preserve-3d;
             background-color: #111111;
             z-index: 1;
         }
@@ -460,7 +464,7 @@
             position: fixed; top: 0; width: 100%; z-index: 50; padding: 20px 24px;
             opacity: 0; transform: translate3d(0, -28px, 0);
             transition: padding 0.4s ease, opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
-            will-change: transform, opacity, background-color;
+            will-change: transform, opacity;
         }
         body.site-ready nav {
             opacity: 1;
@@ -473,7 +477,7 @@
             border: 0.5px solid rgba(255,255,255,0.08); padding: 14px 28px; border-radius: 100px;
             transition: background-color 0.4s ease, border-color 0.4s ease;
         }
-        nav.scrolled .nav-inner { background-color: rgba(17,17,17,0.85); border-color: rgba(255,255,255,0.12); }
+        nav.scrolled .nav-inner { background-color: rgba(17,17,17,0.88); border-color: rgba(255,255,255,0.12); }
         .nav-logo { font-family: 'Anton', sans-serif; letter-spacing: 0.15em; font-size: 15px; color: rgba(255,255,255,0.9); }
         .nav-logo span { color: #FFB800; }
         .nav-links { display: flex; gap: 32px; align-items: center; }
@@ -532,8 +536,19 @@
         .hero-block.exiting .hero-word { transform: translate3d(0, -110%, 0); opacity: 0; transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53); }
         .hero-block.exiting .hero-sub { opacity: 0; transform: translate3d(0, -20px, 0); transition-duration: 0.5s; transition-delay: 0s; transition-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53); }
 
-        .animated-stroke { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.5); position: relative; display: inline-block; }
-        .animated-stroke::after { content: "COMPLETA."; position: absolute; left: 0; top: 0; width: var(--fill-width); height: 100%; color: var(--brand-yellow); -webkit-text-stroke: 1.5px var(--brand-yellow); overflow: hidden; white-space: nowrap; filter: drop-shadow(0 0 14px rgba(255,184,0,0.5)); transition: width 0.08s linear; will-change: width; }
+        .animated-stroke { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.5); position: relative; display: inline-block; --fill-width: 0%; }
+        .animated-stroke::after {
+            content: "COMPLETA.";
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            color: var(--brand-yellow);
+            -webkit-text-stroke: 1.5px var(--brand-yellow);
+            white-space: nowrap;
+            filter: drop-shadow(0 0 14px rgba(255,184,0,0.5));
+            clip-path: inset(0 calc(100% - var(--fill-width, 0%)) 0 0);
+            will-change: clip-path;
+        }
 
         .h-display { font-family: 'Anton', sans-serif; letter-spacing: 0.05em; line-height: 1.1; font-size: clamp(40px, 11vw, 120px); color: #F8F8F8; display: block; margin-bottom: 28px; }
         .accent { color: #FFB800; }
@@ -702,7 +717,7 @@
         .section-body { font-size: clamp(14px, 1.6vw, 16px); color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.7; }
 
         .reveal { opacity: 0; transform: translate3d(0, 32px, 0); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); will-change: transform, opacity; }
-        .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0); }
+        .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0); will-change: auto; }
         .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; }
 
         .reveal-sweep { opacity: 1 !important; transform: translate3d(0,0,0) !important; }
@@ -1197,11 +1212,21 @@
         .chat-footer-note { text-align: center; font-size: 10px; color: rgba(255,255,255,0.38); padding: 0 14px 11px; background: rgba(0,0,0,0.28); letter-spacing: 0.03em; }
 
         @media (max-width: 768px) {
+            /* Otimizações críticas de GPU e touch no mobile */
+            body::before { display: none; }
+            #scroll-hero { height: 340vh; }
+
             .intro-hud { padding: 22px 20px; }
             .intro-chip { font-size: 9px; letter-spacing: 0.16em; }
             .intro-eyebrow { letter-spacing: 0.26em; }
 
-            .nav-inner { justify-content: space-between; padding: 12px 20px; }
+            .nav-inner {
+                justify-content: space-between;
+                padding: 12px 20px;
+                background: rgba(17, 17, 17, 0.9);
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
             .nav-links { display: none; }
             .scroll-dots { right: 20px; }
             .service-item { grid-template-columns: 30px 1fr; gap: 20px; padding: 24px 0; }
@@ -1212,15 +1237,56 @@
             .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
             .footer-grid > div:first-child { grid-column: 1 / -1; }
             .hide-on-mobile { display: none !important; }
-            .product-card { opacity: 1 !important; transform: translate3d(0,0,0) !important; }
+
+            .product-card,
+            .card-gallery-btn,
+            .card-gallery-dots {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                will-change: auto;
+            }
+            .product-card {
+                opacity: 1 !important;
+                transform: none !important;
+                background: rgba(24, 24, 24, 0.94);
+            }
+            .product-card::after { display: none; }
+            .product-image { filter: none; }
 
             .tiktok-stripe { padding: 64px 7%; }
+            .tt-glow { filter: none; animation: none; opacity: 0.35; }
+            .tt-glow-1 { background: radial-gradient(circle, rgba(37, 244, 238, 0.45) 0%, transparent 70%); }
+            .tt-glow-2 { background: radial-gradient(circle, rgba(254, 44, 85, 0.45) 0%, transparent 70%); }
             .tt-left { flex-direction: column; align-items: flex-start; gap: 22px; flex-basis: 100%; }
-            .tt-btn { width: 100%; justify-content: center; padding: 20px 24px; }
+            .tt-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 20px 24px;
+                animation: none;
+                box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+            }
+            .tt-btn::before { animation: none; display: none; }
 
-            .chat-container { width: calc(100vw - 24px); bottom: 88px; right: 12px; height: calc(100svh - 114px); max-height: 620px; border-radius: 22px; }
+            .chat-container {
+                width: calc(100vw - 24px);
+                bottom: 88px;
+                right: 12px;
+                height: calc(100svh - 114px);
+                max-height: 620px;
+                border-radius: 22px;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: #141414;
+            }
             .whatsapp-float { bottom: 18px; right: 18px; width: 58px; height: 58px; }
-            .chat-tooltip { bottom: 86px; right: 16px; width: min(300px, calc(100vw - 32px)); padding: 12px 13px; }
+            .chat-tooltip {
+                bottom: 86px;
+                right: 16px;
+                width: min(300px, calc(100vw - 32px));
+                padding: 12px 13px;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
             .chat-tooltip::after { right: 22px; }
 
             .process-line-bg, .process-line-fill { display: none; }
@@ -1995,6 +2061,9 @@
 
     <script>
     (() => {
+        const IS_MOBILE = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 1024;
+        const HAS_HOVER = window.matchMedia('(hover: hover)').matches;
+
         /* =========================================================
            1. GALERIA INTERATIVA + SPOTLIGHT NOS CARDS DE PRODUTOS
            ========================================================= */
@@ -2060,11 +2129,13 @@
             const card = document.getElementById(cardId);
             if (!card || !images.length) return;
 
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-                card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
-            }, { passive: true });
+            if (HAS_HOVER && !IS_MOBILE) {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+                    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+                }, { passive: true });
+            }
 
             const imgEl = card.querySelector('.product-image');
             const prevBtn = card.querySelector('.card-gallery-prev');
@@ -2112,7 +2183,7 @@
         let realProgress = 0;
         let visualProgress = 0;
         const introStartTime = performance.now();
-        const MIN_INTRO_MS = 1650;
+        const MIN_INTRO_MS = IS_MOBILE ? 1200 : 1650;
 
         // Text Scramble (efeito decodificação high-tech)
         function runTextScramble(el, finalText) {
@@ -2121,6 +2192,10 @@
             let frame = 0;
             const totalFrames = 36;
             function step() {
+                if (introDone) {
+                    el.textContent = finalText;
+                    return;
+                }
                 let out = '';
                 const revealCount = Math.floor((frame / totalFrames) * finalText.length);
                 for (let i = 0; i < finalText.length; i++) {
@@ -2142,14 +2217,14 @@
         // Partículas de faíscas industriais douradas no Canvas da intro
         let sparks = [];
         function resizeSparks() {
-            const d = Math.min(window.devicePixelRatio || 1, 2);
+            const d = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.25 : 2);
             sparksCanvas.width = Math.round(window.innerWidth * d);
             sparksCanvas.height = Math.round(window.innerHeight * d);
             sCtx.setTransform(d, 0, 0, d, 0, 0);
         }
         resizeSparks();
 
-        const sparkCount = window.innerWidth <= 768 ? 28 : 55;
+        const sparkCount = IS_MOBILE ? 22 : 55;
         for (let i = 0; i < sparkCount; i++) {
             sparks.push({
                 x: Math.random() * window.innerWidth,
@@ -2207,16 +2282,23 @@
         const END_FRAME   = 192;
         const FRAME_COUNT = END_FRAME - START_FRAME + 1;
         const PLAY_END    = 0.90;
-        const IS_MOBILE   = /iPhone|Android|iPad/i.test(navigator.userAgent) || window.innerWidth <= 1024;
+        const MOBILE_STEP = IS_MOBILE ? 3 : 1;
 
         const bitmaps = new Array(FRAME_COUNT);
-        let loaded = 0, currentFraction = 0, targetFraction = 0, lastScrollY = window.scrollY, rafId = null;
+        let loaded = 0, currentFraction = 0, targetFraction = 0;
+        let rafId = null, isLoopRunning = false;
         let lastWinWidth = window.innerWidth;
         let lastRenderedFraction = -1;
 
         const canvas = document.getElementById('hero-canvas');
-        const ctx    = canvas.getContext('2d', { alpha: false, desynchronized: true });
-        let cW, cH, dpr, drawX, drawY, drawW, drawH;
+        const ctx    = canvas.getContext('2d', { alpha: false });
+        let cW = 0, cH = 0, dpr = 1, drawX = 0, drawY = 0, drawW = 0, drawH = 0;
+        let heroTotalHeight = 1;
+
+        const heroEl      = document.getElementById('scroll-hero');
+        const navEl       = document.getElementById('main-nav');
+        const scrollIndEl = document.getElementById('scroll-indicator');
+        let strokeEl      = null;
 
         /* copy-1 começa em 0 para surgir imediatamente ao abrir a cortina */
         const blocks = [
@@ -2233,28 +2315,30 @@
                 b.el = document.getElementById(b.id);
                 b.dotEl = document.getElementById(b.dot);
             });
+            strokeEl = document.querySelector('.animated-stroke');
             processSectionEl = document.getElementById('como-comprar');
             fillHEl = document.getElementById('process-fill-h');
             fillVEl = document.getElementById('process-fill-v');
             processStepsEls = document.querySelectorAll('.process-step');
+            updateMetrics();
         }
 
-        function lockHeroHeight() {
-            const stickyHero = document.getElementById('hero-sticky-container');
-            if (stickyHero) {
-                stickyHero.style.height = IS_MOBILE ? (window.innerHeight + 'px') : '100vh';
+        function updateMetrics() {
+            if (heroEl) {
+                heroTotalHeight = Math.max(1, heroEl.offsetHeight - window.innerHeight);
             }
         }
 
         function recalcLayout() {
-            dpr = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.5 : 2);
+            updateMetrics();
+            dpr = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.25 : 2);
             cW  = document.documentElement.clientWidth;
             cH  = window.innerHeight;
             canvas.width  = Math.round(cW * dpr);
             canvas.height = Math.round(cH * dpr);
             canvas.style.width  = cW + 'px';
             canvas.style.height = cH + 'px';
-            ctx.scale(dpr, dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             const ref = bitmaps.find(Boolean);
             if (ref) {
                 computeDraw(ref);
@@ -2272,38 +2356,41 @@
         }
 
         function render(fraction) {
-            if (Math.abs(fraction - lastRenderedFraction) < 0.00001) return;
+            if (Math.abs(fraction - lastRenderedFraction) < 0.0004) return;
 
-            const prog  = Math.min(1, fraction / PLAY_END) * (FRAME_COUNT - 1);
-            const base  = Math.floor(prog);
-            const t     = prog - base;
-            const bmpA  = bitmaps[base];
-            const bmpB  = bitmaps[Math.min(base + 1, FRAME_COUNT - 1)];
+            const prog = Math.min(1, fraction / PLAY_END) * (FRAME_COUNT - 1);
+            const base = Math.floor(prog / MOBILE_STEP) * MOBILE_STEP;
+            const next = Math.min(base + MOBILE_STEP, FRAME_COUNT - 1);
+            const t    = next > base ? (prog - base) / (next - base) : 0;
+
+            const bmpA = bitmaps[base] || bitmaps[0];
+            const bmpB = bitmaps[next];
 
             if (!bmpA) return;
-
-            ctx.clearRect(0, 0, cW, cH);
 
             ctx.globalAlpha = 1;
             ctx.drawImage(bmpA, drawX, drawY, drawW, drawH);
 
-            if (t > 0.015 && bmpB) {
+            if (!IS_MOBILE && t > 0.015 && bmpB) {
                 ctx.globalAlpha = t;
                 ctx.drawImage(bmpB, drawX, drawY, drawW, drawH);
                 ctx.globalAlpha = 1;
             }
 
-            if (fraction > 0.88 && !IS_MOBILE) {
-                const zp = (fraction - 0.88) / 0.12;
-                canvas.style.transform = `scale3d(${1 - zp * 0.04}, ${1 - zp * 0.04}, 1)`;
-            } else {
-                canvas.style.transform = 'scale3d(1, 1, 1)';
+            if (!IS_MOBILE) {
+                if (fraction > 0.88) {
+                    const zp = (fraction - 0.88) / 0.12;
+                    canvas.style.transform = `scale3d(${1 - zp * 0.04}, ${1 - zp * 0.04}, 1)`;
+                } else if (canvas.style.transform !== '') {
+                    canvas.style.transform = '';
+                }
             }
 
             lastRenderedFraction = fraction;
         }
 
         function applyText(fraction) {
+            const driftFactor = cH * 0.55;
             blocks.forEach((b) => {
                 if (!b.el) return;
                 const inRange = fraction >= b.start && fraction <= b.end;
@@ -2314,12 +2401,12 @@
                     b.el.classList.add('active');
                     if (b.dotEl) b.dotEl.classList.add('active');
 
-                    const drift = (fraction - b.start) * (window.innerHeight * 0.55);
-                    b.el.style.transform = `translate3d(0, ${-drift.toFixed(2)}px, 0)`;
+                    const drift = (fraction - b.start) * driftFactor;
+                    b.el.style.transform = `translate3d(0, ${-drift.toFixed(1)}px, 0)`;
 
-                    if (b.id === 'copy-1') {
+                    if (b.id === 'copy-1' && strokeEl) {
                         const fill = Math.min(100, ((fraction - b.start) / 0.16) * 100);
-                        document.documentElement.style.setProperty('--fill-width', fill.toFixed(1) + '%');
+                        strokeEl.style.setProperty('--fill-width', fill.toFixed(1) + '%');
                     }
                 } else {
                     if (b.dotEl) b.dotEl.classList.remove('active');
@@ -2339,49 +2426,59 @@
             });
         }
 
-        function loop() {
-            const curScrollY = Math.max(0, window.scrollY);
-            const velocity   = Math.abs(curScrollY - lastScrollY);
-            lastScrollY      = curScrollY;
-            const delta = targetFraction - currentFraction;
-
-            if (Math.abs(delta) > 0.00005) {
-                const base = IS_MOBILE ? 0.12 : 0.08;
-                const lerp = Math.min(IS_MOBILE ? 0.35 : 0.15, base + velocity * 0.0008);
-                currentFraction += delta * lerp;
-                currentFraction = Math.max(0, Math.min(1, currentFraction));
-
-                render(currentFraction);
-                applyText(currentFraction);
-            }
+        function startLoop() {
+            if (!introDone || isLoopRunning) return;
+            isLoopRunning = true;
             rafId = requestAnimationFrame(loop);
         }
 
-        function updateScrollFraction() {
-            const hero  = document.getElementById('scroll-hero');
-            const total = hero.offsetHeight - window.innerHeight;
-            targetFraction = Math.max(0, Math.min(1, window.scrollY / (total || 1)));
+        function loop() {
+            const delta = targetFraction - currentFraction;
 
-            const nav = document.getElementById('main-nav');
-            if (window.scrollY > 60) {
-                nav.classList.add('scrolled');
+            if (Math.abs(delta) > 0.0003) {
+                const lerp = IS_MOBILE ? 0.24 : 0.10;
+                currentFraction = Math.max(0, Math.min(1, currentFraction + delta * lerp));
+                render(currentFraction);
+                applyText(currentFraction);
+                rafId = requestAnimationFrame(loop);
             } else {
-                nav.classList.remove('scrolled');
+                currentFraction = targetFraction;
+                render(currentFraction);
+                applyText(currentFraction);
+                isLoopRunning = false;
+                rafId = null;
+            }
+        }
+
+        let navScrolled = false;
+        let indicatorHidden = false;
+
+        function updateScrollFraction() {
+            const scrollY = window.scrollY;
+            const nextTarget = Math.max(0, Math.min(1, scrollY / heroTotalHeight));
+
+            if (nextTarget !== targetFraction) {
+                targetFraction = nextTarget;
+                startLoop();
             }
 
-            const scrollInd = document.getElementById('scroll-indicator');
-            if (scrollInd) {
-                if (window.scrollY > 50) {
-                    scrollInd.classList.add('hidden');
-                } else {
-                    scrollInd.classList.remove('hidden');
+            const shouldScrollNav = scrollY > 60;
+            if (shouldScrollNav !== navScrolled) {
+                navScrolled = shouldScrollNav;
+                navEl.classList.toggle('scrolled', navScrolled);
+            }
+
+            if (scrollIndEl) {
+                const shouldHideInd = scrollY > 50;
+                if (shouldHideInd !== indicatorHidden) {
+                    indicatorHidden = shouldHideInd;
+                    scrollIndEl.classList.toggle('hidden', indicatorHidden);
                 }
             }
 
             if (isProcessSectionVisible && processSectionEl) {
                 const rect = processSectionEl.getBoundingClientRect();
-                const viewH = window.innerHeight;
-                const startY = viewH * 0.8;
+                const startY = cH * 0.8;
                 let rawProgress = (startY - rect.top) / (rect.height * 0.8);
                 rawProgress = Math.max(0, Math.min(1, rawProgress));
 
@@ -2391,25 +2488,19 @@
                 if (processStepsEls) {
                     processStepsEls.forEach((step, i) => {
                         const triggerPoint = i * (1 / (processStepsEls.length - 1)) * 0.8;
-                        if (rawProgress >= triggerPoint) {
-                            step.classList.add('active');
-                        } else {
-                            step.classList.remove('active');
-                        }
+                        step.classList.toggle('active', rawProgress >= triggerPoint);
                     });
                 }
             }
         }
 
         window.addEventListener('scroll', updateScrollFraction, { passive: true });
-        window.addEventListener('touchmove', updateScrollFraction, { passive: true });
 
         let resizeTimer;
         window.addEventListener('resize', () => {
             if (!introDone) resizeSparks();
             if (IS_MOBILE && window.innerWidth === lastWinWidth) return;
             lastWinWidth = window.innerWidth;
-            lockHeroHeight();
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(recalcLayout, 150);
         }, { passive: true });
@@ -2424,6 +2515,11 @@
             if (introStatus) introStatus.innerHTML = 'ENGINE PRONTA · <strong>BEM-VINDO</strong>';
 
             recalcLayout();
+            updateScrollFraction();
+            currentFraction = targetFraction;
+            lastRenderedFraction = -1;
+            render(currentFraction);
+
             introStage.classList.add('phase-flash');
 
             setTimeout(() => {
@@ -2432,19 +2528,20 @@
                 document.body.classList.add('site-ready');
                 window.dispatchEvent(new CustomEvent('araguaia:siteReady'));
 
-                // Ativa o primeiro bloco de texto e o motor de scroll durante a abertura
+                // Ativa o primeiro bloco de texto e observers durante a abertura
                 setTimeout(() => {
-                    applyText(targetFraction);
+                    applyText(currentFraction);
                     initReveal();
                     initCounters();
-                    loop();
+                    startLoop();
                 }, 260);
 
-                // Encerra o canvas de faíscas e remove a camada da intro após a cortina abrir
+                // Encerra o canvas de faíscas e libera will-change após a cortina abrir
                 setTimeout(() => {
                     if (sparksRafId) cancelAnimationFrame(sparksRafId);
                     introStage.style.display = 'none';
-                }, 1050);
+                    document.body.classList.add('hero-settled');
+                }, 1500);
             }, 340);
         }
 
@@ -2486,23 +2583,24 @@
 
         async function loadAll() {
             initBlocks();
-            lockHeroHeight();
 
             const CONCURRENCY = IS_MOBILE ? 4 : 8;
             const queue = [];
             for (let i = 0; i < FRAME_COUNT; i++) queue.push(i);
 
-            const devicePixelRatio = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.5 : 2);
-            const memWidth = window.innerWidth > 0 ? Math.round(window.innerWidth * devicePixelRatio) : 1080;
+            const devicePixelRatio = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.25 : 2);
+            const memWidth = IS_MOBILE
+                ? Math.min(720, Math.round((window.innerWidth || 400) * devicePixelRatio))
+                : 0;
 
             async function worker() {
                 while (queue.length) {
                     const i = queue.shift();
 
-                    if (IS_MOBILE && i > 0) {
+                    // No mobile, carrega 1 a cada 3 frames (~37 frames leves) + último frame
+                    if (IS_MOBILE && i % MOBILE_STEP !== 0 && i !== FRAME_COUNT - 1) {
                         loaded++;
                         realProgress = (loaded / FRAME_COUNT) * 100;
-                        if (introStatus) introStatus.innerHTML = `OTIMIZANDO MOBILE · <strong>${String(loaded).padStart(2, '0')}/${FRAME_COUNT}</strong>`;
                         continue;
                     }
 
@@ -2514,7 +2612,7 @@
                         const blob = await res.blob();
 
                         const bmpOpts = { premultiplyAlpha: 'none', colorSpaceConversion: 'none' };
-                        if (IS_MOBILE) {
+                        if (IS_MOBILE && memWidth > 0) {
                             bmpOpts.resizeWidth = memWidth;
                         }
 
@@ -2725,7 +2823,6 @@
         const now = ctx.currentTime;
 
         if (mode === 'alert') {
-            // Nota 1 (A5 - 880Hz) + Nota 2 (D6 - 1174.66Hz): toque "plim-plom" limpo e agradável
             const notes = [
                 { freq: 880, overtone: 1760, start: 0, dur: 0.24, vol: 0.14 },
                 { freq: 1174.66, overtone: 2349.32, start: 0.105, dur: 0.38, vol: 0.16 }
@@ -2761,7 +2858,6 @@
                 osc2.stop(now + n.start + n.dur + 0.02);
             });
         } else {
-            // Som discreto quando a Fernanda responde dentro do chat aberto
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'sine';
@@ -2808,10 +2904,19 @@
         }
     }
 
-    // Desbloqueia o áudio na primeira interação do usuário (clique, toque ou teclado)
+    // Desbloqueia o áudio na primeira interação e remove os listeners para não pesar no touch
+    const AUDIO_EVENTS = ['pointerdown', 'touchstart', 'click', 'keydown'];
+
+    function cleanupAudioListeners() {
+        AUDIO_EVENTS.forEach((evt) => window.removeEventListener(evt, unlockAudioOnGesture));
+    }
+
     function unlockAudioOnGesture() {
         const ctx = getAudioCtx();
-        if (!ctx) return;
+        if (!ctx) {
+            cleanupAudioListeners();
+            return;
+        }
 
         const onReady = () => {
             if (pendingWelcomeSound && !welcomeSoundPlayed && !chatOpen && !chatOpenedOnce && !tooltipDismissed) {
@@ -2821,6 +2926,7 @@
                     flashNotificationAttention();
                 }
             }
+            cleanupAudioListeners();
         };
 
         if (ctx.state === 'suspended') {
@@ -2830,7 +2936,7 @@
         }
     }
 
-    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
+    AUDIO_EVENTS.forEach((evt) => {
         window.addEventListener(evt, unlockAudioOnGesture, { passive: true });
     });
 
