@@ -1,26 +1,3 @@
-Searched "STMT17993" Stanley caixa de ferramentas
-Searched "STMT71662" Stanley jogo ferramentas
-Searched "R99-150la" Stanley jogo de soquetes 150 pecas
-Searched "BW923EC25" Beta Worker jogo soquete 25 pecas
-Searched "Parafusadeira" 12v 16 pecas maleta Tramontina
-
-Adicionei os **5 novos produtos** ao catálogo interativo com os caminhos exatos das pastas e arquivos `.webp` do seu repositório GitHub, ajustando a função `encPath` com `encodeURIComponent` por segmento para codificar corretamente espaços, acentos, `;` (`%3B`) e `+` (`%2B`).
-
-### O que foi atualizado
-- **Catálogo oficial agora com 14 equipamentos (3 páginas de 6 + 6 + 2)** na seção `#produtos`, mantendo todo o layout e os efeitos aplicados anteriormente (laser dourado, stagger, spotlight, carrossel por card e Quick View modal).
-- **5 novos produtos adicionados** (com especificações técnicas, selos, 3 fotos reais cada e link direto no WhatsApp + evento `trackProductWhatsApp`):
-  1. `Caixa de Ferramentas Stanley Modelo STMT17993` (203 peças, 3 gavetas)
-  2. `Ferramentas Stanley Modelo STMT71662` (183 peças, cromo preto)
-  3. `Jogo De Soquetes 14; 38; 12 150 Peças R99-150la Stanley` (150 peças)
-  4. `Jogo Soquete 12 Aço 25 Peças 8-32mm Bw923ec25 Beta Worker` (25 peças)
-  5. `Kit Parafusadeira + Maleta 12v 16 Peças Tramontina` (12V, 16 peças)
-- **Integrações sincronizadas**: novas marcas (`STANLEY` e `BETA WORKER`) na faixa de marcas, novos itens adicionados no `<select>` do formulário de orçamento, links de produtos no rodapé (navegando direto para a página certa via `#produto-...`) e nova opção na assistente Fernanda do chat.
-
----
-
-### `index.html` completo atualizado para substituir no Git
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -34,7 +11,7 @@ Adicionei os **5 novos produtos** ao catálogo interativo com os caminhos exatos
 
 <!-- SEO Otimizado para Anápolis -->
 <title>Araguaia Máquinas em Anápolis | Ferramentas, STIHL e Construção</title>
-<meta name="description" content="Loja de máquinas, ferramentas, ferragens, hidráulicos e elétricos em Anápolis - GO. Linha STIHL, SGT, Kress, Stanley, Beta Worker e Tramontina com nota fiscal, garantia e envio expresso.">
+<meta name="description" content="Loja de máquinas, ferramentas, ferragens, hidráulicos e elétricos em Anápolis - GO. Linha STIHL, SGT e Kress com nota fiscal, garantia e envio expresso.">
 <link rel="canonical" href="https://www.araguaiamaquinas.com.br/">
 <meta name="robots" content="index, follow">
 
@@ -1178,7 +1155,7 @@ font-family: 'Anton', Impact, sans-serif;
 font-size: 15px;
 letter-spacing: 0.12em;
 color: var(--brand-yellow);
-min-width: 62px;
+min-width: 56px;
 text-align: center;
 }
 
@@ -2265,7 +2242,7 @@ Equipamentos e<br>ferramentas.
 <div class="catalog-status-bar reveal reveal-delay-2">
 <div class="catalog-status-text">
 <span class="pulse-dot" aria-hidden="true"></span>
-<span id="catalog-status">Mostrando <strong>1–6</strong> de <strong>14</strong> equipamentos • Página <strong>1</strong> de <strong>3</strong></span>
+<span id="catalog-status">Mostrando <strong>1–6</strong> de <strong>9</strong> equipamentos • Página <strong>1</strong> de <strong>2</strong></span>
 </div>
 <div class="catalog-hint">
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -2296,10 +2273,8 @@ Clique na foto ou em "Ver detalhes" para abrir o Quick View
 <span class="brand-item">SGT TOOLS</span><div class="brand-dot"></div>
 <span class="brand-item">KRESS</span><div class="brand-dot"></div>
 <span class="brand-item">STIHL</span><div class="brand-dot"></div>
-<span class="brand-item">STANLEY</span><div class="brand-dot"></div>
-<span class="brand-item">BETA WORKER</span><div class="brand-dot"></div>
-<span class="brand-item">TRAMONTINA</span><div class="brand-dot"></div>
 <span class="brand-item">HUSQVARNA</span><div class="brand-dot"></div>
+<span class="brand-item">TRAMONTINA</span><div class="brand-dot"></div>
 <span class="brand-item">TOYAMA</span><div class="brand-dot"></div>
 <span class="brand-item">VULCAN</span><div class="brand-dot"></div>
 <span class="brand-item">MAKITA</span><div class="brand-dot"></div>
@@ -2309,10 +2284,8 @@ Clique na foto ou em "Ver detalhes" para abrir o Quick View
 <span class="brand-item" aria-hidden="true">SGT TOOLS</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">KRESS</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">STIHL</span><div class="brand-dot" aria-hidden="true"></div>
-<span class="brand-item" aria-hidden="true">STANLEY</span><div class="brand-dot" aria-hidden="true"></div>
-<span class="brand-item" aria-hidden="true">BETA WORKER</span><div class="brand-dot" aria-hidden="true"></div>
-<span class="brand-item" aria-hidden="true">TRAMONTINA</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">HUSQVARNA</span><div class="brand-dot" aria-hidden="true"></div>
+<span class="brand-item" aria-hidden="true">TRAMONTINA</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">TOYAMA</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">VULCAN</span><div class="brand-dot" aria-hidden="true"></div>
 <span class="brand-item" aria-hidden="true">MAKITA</span><div class="brand-dot" aria-hidden="true"></div>
@@ -2550,11 +2523,6 @@ referrerpolicy="no-referrer-when-downgrade">
 <option>Motosserra a Combustão STIHL MS 172</option>
 <option>Roçadeira a Combustão STIHL FS 120</option>
 <option>Soprador a Combustão STIHL BG 50</option>
-<option>Caixa de Ferramentas Stanley Modelo STMT17993 (203 Peças)</option>
-<option>Ferramentas Stanley Modelo STMT71662 (183 Peças)</option>
-<option>Jogo de Soquetes 150 Peças R99-150LA Stanley</option>
-<option>Jogo de Soquetes 1/2" 25 Peças BW923EC25 Beta Worker</option>
-<option>Kit Parafusadeira + Maleta 12V 16 Peças Tramontina</option>
 <option>Outros equipamentos / Materiais</option>
 </select>
 </div>
@@ -2595,11 +2563,6 @@ Ao solicitar um orçamento, você concorda com a nossa <a href="politica-de-priv
 <a href="#produto-motosserra" class="footer-link">Motosserra STIHL MS 172</a>
 <a href="#produto-rocadeira" class="footer-link">Roçadeira STIHL FS 120</a>
 <a href="#produto-soprador-bg50" class="footer-link">Soprador STIHL BG 50</a>
-<a href="#produto-stanley-stmt17993" class="footer-link">Caixa Stanley STMT17993</a>
-<a href="#produto-stanley-stmt71662" class="footer-link">Ferramentas Stanley STMT71662</a>
-<a href="#produto-stanley-r99-150la" class="footer-link">Soquetes Stanley R99-150LA</a>
-<a href="#produto-beta-bw923ec25" class="footer-link">Soquetes Beta BW923EC25</a>
-<a href="#produto-tramontina-12v" class="footer-link">Kit Parafusadeira Tramontina 12V</a>
 </div>
 <div>
 <div class="footer-col-title">Contato</div>
@@ -2627,7 +2590,7 @@ Ao solicitar um orçamento, você concorda com a nossa <a href="politica-de-priv
 <button type="button" class="pm-nav-btn" id="pm-prev" aria-label="Produto anterior">
 ← <span class="hide-sm">Produto anterior</span>
 </button>
-<span class="pm-counter" id="pm-counter">1 / 14</span>
+<span class="pm-counter" id="pm-counter">1 / 9</span>
 <button type="button" class="pm-nav-btn" id="pm-next" aria-label="Próximo produto">
 <span class="hide-sm">Próximo produto</span> →
 </button>
@@ -2747,9 +2710,9 @@ const HAS_HOVER = window.matchMedia('(hover: hover)').matches;
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* =========================================================
-1. CATÁLOGO INTERATIVO (14 PRODUTOS • PAGINAÇÃO + LASER + SPOTLIGHT + QUICK VIEW FLIP)
+1. CATÁLOGO INTERATIVO (PAGINAÇÃO + LASER + SPOTLIGHT + QUICK VIEW FLIP)
 ========================================================= */
-const encPath = (p) => p.includes('%') ? p : p.split('/').map(encodeURIComponent).join('/');
+const encPath = (p) => p.includes('%') ? p : encodeURI(p);
 const ITEMS_PER_PAGE = 6;
 
 const CATALOGO_PRODUTOS = [
@@ -2957,116 +2920,6 @@ images: [
 "Soprador a combustão BG 50/Soprador_a_combustão_BG_50.png_202607201407.webp",
 "Soprador a combustão BG 50/Soprador_a_combustão_BG_50.png_202607201408.webp",
 "Soprador a combustão BG 50/Soprador_a_combustão_BG_50.png_202607201409.webp"
-]
-},
-{
-id: "produto-stanley-stmt17993",
-marca: "STANLEY",
-badge: "203 Peças • 3 Gavetas",
-badgeClass: "badge-pro",
-nome: "CAIXA DE FERRAMENTAS STANLEY 203 PEÇAS STMT17993",
-waTrackName: "CAIXA DE FERRAMENTAS STANLEY STMT17993",
-alt: "Caixa de Ferramentas Stanley Modelo STMT17993 com 203 peças e 3 gavetas - Araguaia Máquinas Anápolis",
-chips: ["203 Peças", "3 Gavetas", "Aço Cromo-Vanádio"],
-desc: "Conjunto completo de ferramentas mecânicas em aço Cromo-Vanádio com caixa baú de 3 gavetas corrediças e sistema Maxi-Drive. Ideal para oficinas, manutenção automotiva e uso industrial.",
-features: [
-"203 peças com catracas reversíveis 1/4\", 3/8\" e 1/2\" (72 dentes)",
-"Soquetes e chaves em aço Cromo-Vanádio com tecnologia Maxi-Drive",
-"Caixa baú com 3 gavetas deslizantes e empilhamento modular"
-],
-waUrl: "https://wa.me/556230997275?text=" + encodeURIComponent("Olá, Araguaia Máquinas! Tenho interesse na CAIXA DE FERRAMENTAS STANLEY MODELO STMT17993 (203 PEÇAS). Pode me passar o valor e condições?"),
-images: [
-"Caixa de Ferramentas Stanley Modelo STMT17993/Captura_de_tela_2026-11-24_013052.png_006cf26a.webp",
-"Caixa de Ferramentas Stanley Modelo STMT17993/Captura_de_tela_2026-11-24_013140.png_11380d35.webp",
-"Caixa de Ferramentas Stanley Modelo STMT17993/Captura_de_tela_2026-11-24_013140.png_aba4ce9d.webp"
-]
-},
-{
-id: "produto-stanley-stmt71662",
-marca: "STANLEY",
-badge: "183 Peças • Cromo Preto",
-badgeClass: "badge-hot",
-nome: "FERRAMENTAS STANLEY 183 PEÇAS STMT71662",
-waTrackName: "FERRAMENTAS STANLEY STMT71662",
-alt: "Jogo de Ferramentas Stanley Modelo STMT71662 com 183 peças em cromo preto - Araguaia Máquinas Anápolis",
-chips: ["183 Peças", "Cromo Preto", "Catracas 72 Dentes"],
-desc: "Jogo profissional com 183 peças em acabamento Cromo Preto anticorrosivo, marcações gravadas a laser e catracas de 72 dentes para máximo desempenho em áreas de difícil acesso.",
-features: [
-"Acabamento em Cromo Preto de alta resistência contra oxidação",
-"Catracas 1/4\", 3/8\" e 1/2\" com liberação rápida e tecnologia Maxi-Drive",
-"Soquetes curtos e longos, chaves combinadas, bits e maleta resistente"
-],
-waUrl: "https://wa.me/556230997275?text=" + encodeURIComponent("Olá, Araguaia Máquinas! Tenho interesse no JOGO DE FERRAMENTAS STANLEY MODELO STMT71662 (183 PEÇAS). Pode me passar o valor e condições?"),
-images: [
-"Ferramentas Stanley Modelo STMT71662/Captura_de_tela_2026-11-24_012116.png_09d35cf4.webp",
-"Ferramentas Stanley Modelo STMT71662/Captura_de_tela_2026-11-24_012223.png_29084c38.webp",
-"Ferramentas Stanley Modelo STMT71662/Captura_de_tela_2026-11-24_012532.png_5be578b6.webp"
-]
-},
-{
-id: "produto-stanley-r99-150la",
-marca: "STANLEY",
-badge: "150 Peças • 1/4\" 3/8\" 1/2\"",
-badgeClass: "badge-pro",
-nome: "JOGO DE SOQUETES 1/4\", 3/8\" E 1/2\" 150 PEÇAS R99-150LA STANLEY",
-waTrackName: "JOGO DE SOQUETES 150 PECAS R99-150LA STANLEY",
-alt: "Jogo de Soquetes 1/4, 3/8 e 1/2 150 Peças R99-150LA Stanley - Araguaia Máquinas Anápolis",
-chips: ["150 Peças", "Encaixes 1/4\" 3/8\" 1/2\"", "Normas ANSI / DIN"],
-desc: "Maleta completa com 150 peças nos encaixes de 1/4\", 3/8\" e 1/2\", acabamento em níquel-cromo resistente à corrosão e catracas de alto torque para manutenção mecânica e automotiva.",
-features: [
-"Encaixes de 1/4\", 3/8\" e 1/2\" em medidas milimetradas e polegadas",
-"Ferramentas em aço de alta resistência padrão ANSI e DIN",
-"Inclui extensões, juntas universais, soquetes de impacto e maleta"
-],
-waUrl: "https://wa.me/556230997275?text=" + encodeURIComponent("Olá, Araguaia Máquinas! Tenho interesse no JOGO DE SOQUETES 1/4, 3/8 E 1/2 150 PEÇAS R99-150LA STANLEY. Pode me passar o valor e condições?"),
-images: [
-"Jogo De Soquetes 14; 38; 12 150 Peças R99-150la Stanley/Captura_de_tela_2026-11-25_090553.png_1a774437.webp",
-"Jogo De Soquetes 14; 38; 12 150 Peças R99-150la Stanley/Melhorar_qualidade_e_traduzir_4f067439_2K.webp",
-"Jogo De Soquetes 14; 38; 12 150 Peças R99-150la Stanley/Melhorar_qualidade_e_traduzir_51e233ec.webp"
-]
-},
-{
-id: "produto-beta-bw923ec25",
-marca: "BETA WORKER",
-badge: "25 Peças • 8–32mm",
-badgeClass: "badge-hot",
-nome: "JOGO SOQUETE 1/2\" AÇO 25 PEÇAS 8–32MM BW923EC25 BETA WORKER",
-waTrackName: "JOGO SOQUETE 25 PECAS BW923EC25 BETA WORKER",
-alt: "Jogo Soquete 1/2 Aço 25 Peças 8-32mm BW923EC25 Beta Worker - Araguaia Máquinas Anápolis",
-chips: ["25 Peças", "8 a 32mm • Encaixe 1/2\"", "Linha Beta Worker"],
-desc: "Jogo profissional de 25 peças em aço especial de alta resistência com 20 soquetes sextavados de 8 a 32mm, catraca reversível de 1/2\" e acessórios em estojo organizador compacto.",
-features: [
-"20 soquetes sextavados encaixe 1/2\" de 8mm até 32mm",
-"Acompanha catraca reversível, 2 extensões, junta universal e adaptador",
-"Alta precisão e resistência a torque para oficinas e indústrias"
-],
-waUrl: "https://wa.me/556230997275?text=" + encodeURIComponent("Olá, Araguaia Máquinas! Tenho interesse no JOGO SOQUETE 1/2 AÇO 25 PEÇAS 8-32MM BW923EC25 BETA WORKER. Pode me passar o valor e condições?"),
-images: [
-"Jogo Soquete 12 Aço 25 Peças 8-32mm Bw923ec25 Beta Worker/Captura_de_tela_2026-11-24_013607.png_37cb36bb.webp",
-"Jogo Soquete 12 Aço 25 Peças 8-32mm Bw923ec25 Beta Worker/melhore_a_qualidade_0e756501.webp",
-"Jogo Soquete 12 Aço 25 Peças 8-32mm Bw923ec25 Beta Worker/melhore_a_qualidade_53d7b2a3.webp"
-]
-},
-{
-id: "produto-tramontina-12v",
-marca: "TRAMONTINA",
-badge: "Bateria 12V • 16 Peças",
-badgeClass: "badge-new",
-nome: "KIT PARAFUSADEIRA + MALETA 12V 16 PEÇAS TRAMONTINA",
-waTrackName: "KIT PARAFUSADEIRA 12V 16 PECAS TRAMONTINA",
-alt: "Kit Parafusadeira e Furadeira 12V com Maleta 16 Peças Tramontina - Araguaia Máquinas Anápolis",
-chips: ["Bateria Íons Lítio 12V", "16 Peças + Maleta", "Carregador Bivolt"],
-desc: "Parafusadeira e furadeira 2 em 1 à bateria 12V com mandril de aperto rápido 3/8\", luz LED frontal, 19 posições de torque + perfuração e maleta completa com 16 peças.",
-features: [
-"Bateria de íons de lítio 12V sem efeito memória e carregador bivolt",
-"Velocidade variável/reversível, luz LED e indicador de nível de carga",
-"Acompanha maleta plástica resistente e kit com 16 acessórios"
-],
-waUrl: "https://wa.me/556230997275?text=" + encodeURIComponent("Olá, Araguaia Máquinas! Tenho interesse no KIT PARAFUSADEIRA + MALETA 12V 16 PEÇAS TRAMONTINA. Pode me passar o valor e condições?"),
-images: [
-"Kit Parafusadeira + Maleta 12v 16 Peças Tramontina/Captura_de_tela_2026-11-24_011610.png_2048efb4.webp",
-"Kit Parafusadeira + Maleta 12v 16 Peças Tramontina/Captura_de_tela_2026-11-24_011610.png_67146aeb.webp",
-"Kit Parafusadeira + Maleta 12v 16 Peças Tramontina/Captura_de_tela_2026-11-24_011610.png_6eb56f47.webp"
 ]
 }
 ];
@@ -4613,8 +4466,7 @@ botTyping(() => {
 addMessage("Ótimo! Qual linha de produtos você procura?", "bot");
 addOptions([
 { text: "🛠️ Linha SGT Tools e Kress", val: "linha-sgt" },
-{ text: "🌿 Linha STIHL (lavadora, motosserra, roçadeira, soprador)", val: "linha-stihl" },
-{ text: "🧰 Kits Stanley, Beta Worker e Tramontina", val: "linha-ferramentas" }
+{ text: "🌿 Linha STIHL (lavadora, motosserra, roçadeira, soprador)", val: "linha-stihl" }
 ]);
 });
 } else if (opt.val === 'linha-sgt') {
@@ -4636,17 +4488,6 @@ addOptions([
 { text: "🪚 Motosserra a Combustão MS 172", val: "Motosserra a Combustão STIHL MS 172" },
 { text: "🌾 Roçadeira a Combustão FS 120", val: "Roçadeira a Combustão STIHL FS 120" },
 { text: "🍂 Soprador a Combustão BG 50", val: "Soprador a Combustão STIHL BG 50" }
-]);
-});
-} else if (opt.val === 'linha-ferramentas') {
-botTyping(() => {
-addMessage("Excelente linha! Qual kit ou jogo você procura?", "bot");
-addOptions([
-{ text: "🧰 Caixa Stanley STMT17993 (203 Peças)", val: "Caixa de Ferramentas Stanley Modelo STMT17993" },
-{ text: "🖤 Ferramentas Stanley STMT71662 (183 Peças)", val: "Ferramentas Stanley Modelo STMT71662" },
-{ text: "🔧 Jogo de Soquetes 150 Peças R99-150LA Stanley", val: "Jogo de Soquetes 150 Peças R99-150LA Stanley" },
-{ text: "🔩 Jogo Soquete 1/2\" 25 Peças BW923EC25 Beta Worker", val: "Jogo Soquete 1/2\" 25 Peças BW923EC25 Beta Worker" },
-{ text: "🔋 Kit Parafusadeira 12V 16 Peças Tramontina", val: "Kit Parafusadeira + Maleta 12V 16 Peças Tramontina" }
 ]);
 });
 } else if (opt.val === 'materiais') {
@@ -4751,4 +4592,3 @@ window.open(waUrl, '_blank');
 </script>
 </body>
 </html>
-```
